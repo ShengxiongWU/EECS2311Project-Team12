@@ -1,2 +1,3 @@
-# EECS2311Project-Team12
-This is the EECS2311Project of team 12
+### EECS2311Project-Team12
+##Planning document
+#iteration 1
