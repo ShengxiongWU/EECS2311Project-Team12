@@ -15,21 +15,21 @@ public class Courses {
 	    
 	    public boolean validInput (String grade) {
 	    	
-	    	ArrayList<String> a = new ArrayList<String>();
+	    	ArrayList<String> validArray = new ArrayList<String>();
 	    	
-	    	a.add("A+");
-	    	a.add("A");
-	    	a.add("B+");
-	    	a.add("B");
-	    	a.add("C+");
-	    	a.add("C");
-	    	a.add("D+");
-	    	a.add("D");
-	    	a.add("F");
-	    	a.add("E");
+	    	validArray.add("A+");
+	    	validArray.add("A");
+	    	validArray.add("B+");
+	    	validArray.add("B");
+	    	validArray.add("C+");
+	    	validArray.add("C");
+	    	validArray.add("D+");
+	    	validArray.add("D");
+	    	validArray.add("F");
+	    	validArray.add("E");
 	    	
 	    	
-	    	return a.contains(grade);
+	    	return validArray.contains(grade);
 	    }
 	    public void storeCourseList(String courseName, String grade) {
 	    	
