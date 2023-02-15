@@ -1,3 +1,4 @@
+package DB;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -42,7 +43,7 @@ public class DB {
 	                    " student_id VARCHAR(20) not null," +
 	                    " status VARCHAR(20) not null," +
 	                    " term_taken VARCHAR(10) not null," +
-	                    " prequisites VARCHAR(255), " +
+	                    " grade VARCHAR(2)," +
 	                    " PRIMARY KEY (course_id, student_id)," +
 	                    " FOREIGN KEY (student_id) REFERENCES students(id)," +
 	                    " FOREIGN KEY (course_id) REFERENCES courses(id));";
