@@ -1,11 +1,14 @@
-package Backend;
+package TestCases;
 import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import Backend.Courses;
 
 public class CourseTest {
 
@@ -24,7 +27,8 @@ public class CourseTest {
     @Test
     public void testSatisfiedCourse() {
     	
-    	courseGrade.storeCourseList("Data Structures", 80);
+    	
+    	courseGrade.storeCourseList("Data Structures", "A+");
         
 
         List<String> satisfiedCourses = courseGrade.getSatisfiedCourses();
@@ -43,7 +47,7 @@ public class CourseTest {
     public void testSatisfiedCoursesList() {
         Courses courses = new Courses();
 
-        courses.storeCourseList("Software Development", 70);
+        courses.storeCourseList("Software Development", "B");
 
         List<String> satisfiedCourses = courses.getSatisfiedCourses();
 
@@ -52,33 +56,31 @@ public class CourseTest {
     
     
     /*
-	 * Tests if the failing course is contained within the unsatisfiedCourses list
+	 * Tests if the failing course is contained within the unsatisfiedCourses list and unsatisfiedCourse is empty
 	 */
     @Test
     public void testUnsatisfiedCoursesList() {
         Courses courses = new Courses();
 
-        courses.storeCourseList("Software Development", 40);
+        courses.storeCourseList("Software Development", "E");
 
         List<String> unsatisfiedCourses = courses.getUnsatisfiedCourses();
 
         assertTrue(unsatisfiedCourses.contains("Software Development"));
+        assertFalse(unsatisfiedCourses.isEmpty());
     }
     
     /*
-	 * Tests if the passing course is contained within the unsatisfiedCourses list
+	 * Tests if the input is invalid then it will throw IllegalArgumentException
 	 */
     @Test
-    public void testUnsatisfiedCourses() {
+    public void testInvalidInput() {
 
     	Courses courses = new Courses();
 
-        courses.storeCourseList("Data Structures", 80);
-
-        List<String> unsatisfiedCourses = courses.getUnsatisfiedCourses();
-
-        assertFalse(unsatisfiedCourses.contains("Data Structures"));
+        assertThrows(IllegalArgumentException.class,()->courses.storeCourseList("Software Development", "Z"));
     }
+    
 }
 
 
