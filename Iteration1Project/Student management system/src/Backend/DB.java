@@ -72,6 +72,34 @@ public class DB {
 	        }
     }
     
+    public void sampleDB() {
+        try {
+        	conn = DriverManager.getConnection(this.url + "/db",this.user,this.password);
+			Statement statement = conn.createStatement();
+			
+			 String insert_student_1 = "insert into students values('218041103','matthew','145214321', 'mattpat1','Toronto','software engineering');";
+	            String insert_student_2 = "insert into students values('218041106','joe','171456998', 'joeman','Toronto','software engineering');";
+	            statement.executeUpdate(insert_student_1);
+	            statement.executeUpdate(insert_student_2);
+	            System.out.println("inserted students successfully...");
+	            
+	            String insert_course_1 = "insert into courses values('EECS2030', 'Data Structures', '3.0', 'EECS2011 EECS1090');";
+	            String insert_course_2 = "insert into courses values('EECS1090', 'Intro Computer Science Logic', '3.0', 'EECS 1019');";
+	            statement.executeUpdate(insert_course_1);
+	            statement.executeUpdate(insert_course_2);
+	            System.out.println("inserted courses successfully...");
+	            
+	            String insert_enrollment_1 = "insert into course_enrollment values('EECS2030','Data Structures','218041103', 'Completed','fall', 'A');";
+	            String insert_enrollment_4 = "insert into course_enrollment values('EECS2030','Data Structures','218041106', 'InProgress','winter', 'C+');";
+	            
+	            statement.executeUpdate(insert_enrollment_1);
+	            statement.executeUpdate(insert_enrollment_4);
+	            System.out.println("inserted enrollments successfully...");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
     
     
     public boolean enroll(String id, String account, String password, String address, String degree) {
