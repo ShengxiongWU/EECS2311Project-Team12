@@ -1,4 +1,4 @@
-package UI;
+package Frontend;
 
 import java.awt.Container;
 import java.awt.Dialog;
