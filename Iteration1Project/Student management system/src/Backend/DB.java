@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DB {
 	public String url;
@@ -128,6 +129,7 @@ public class DB {
 		return false;	
     }
     
+    
     public boolean login(String account, String password) {
     	try {
     		String sql = "select * from students where account = ? and password = ?";
@@ -136,14 +138,64 @@ public class DB {
     		pstmt.setString(1, account);
     		pstmt.setString(2, password);
 	    	
-	    	 ResultSet rs = pstmt.executeQuery(sql);
+	    	ResultSet rs = pstmt.executeQuery();
 	    	 
-	    	 if(rs.next()) return true;
+	    	if(rs.next()) return true;
     	}
     	catch(SQLException e) {
     		e.printStackTrace();
     	}
 		return false;
     	
+    }
+    
+    public String course_prerequisite(String course_id){
+    	try {
+    		String sql = "select prequisites from courses where id = " + "'" + course_id + "'";
+    		Statement pstmt = conn.createStatement();
+	    	
+	    	ResultSet rs = pstmt.executeQuery(sql);
+	    	 
+	    	 if(rs.next()) {
+	    		String result = rs.getString("prequisites");
+	    		return result;
+	    	 }
+    	}
+    	catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return null;
+    }
+    
+    public ArrayList<String> student_info(String student_id){
+    	ArrayList<String> result = new ArrayList<String>();
+    	try {
+    		String sql = "select * from students where id = ?";
+    		PreparedStatement pstmt = conn.prepareStatement(sql);
+	    	
+    		pstmt.setString(1, student_id);
+	    	ResultSet rs = pstmt.executeQuery();
+	    	 
+	    	 if(rs.next()) {
+		    		String id = rs.getString("id");
+		    		String name = rs.getString("name");
+		    		String account = rs.getString("account");
+		    		String password = rs.getString("password");
+		    		String address = rs.getString("address");
+		    		String degree = rs.getString("degree");
+		    		result.add(id);
+		    		result.add(name);
+		    		result.add(account);
+		    		result.add(password);
+		    		result.add(address);
+		    		result.add(degree);
+		    	 }
+    	}
+    	catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return result;
     }
 }
