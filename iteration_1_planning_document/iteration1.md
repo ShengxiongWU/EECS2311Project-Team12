@@ -81,13 +81,3 @@
 * required courses is showed in the degree requirements
 * Priority: Medium                                                                               
 * Cost: 3-5 days
-
-
-
-
-
-
-
-
-
-

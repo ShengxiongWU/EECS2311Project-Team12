@@ -1,56 +1,62 @@
-package Backend;
+pa
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Courses {
+		private ArrayList<Course> all_Courses;
+		private static Courses courses;
 		
-		//initialize lists
-	    private List<String> satisfiedCourses = new ArrayList<>();
-	    private List<String> unsatisfiedCourses = new ArrayList<>();
+		private Courses() {
+			//1000 level course
+			Course course1 = new Course("EECS 1090", "Computational Logic", 3.0, new ArrayList<Course>()); 
+			Course course1_2 = new Course("EECS 1019", "Math for Programming", 4.0, new ArrayList<Course>());
+			Course course1_3 = new Course("EECS 1012", "introduction to webprogramming", 3.0, new ArrayList<Course>());
+			Course course1_4 = new Course("EECS 1021", "introduction to OOP programming", 6.0, new ArrayList<Course>());
+			//pre for 2030 and 2311
+			ArrayList<Course> prerequisites_2 = new ArrayList<Course>();
+			prerequisites_2.add(course1);
+			prerequisites_2.add(course1_2);
+			prerequisites_2.add(course1_4);
+			//pre for 2011
+			ArrayList<Course> prerequisites_2_1 = new ArrayList<Course>();
+			prerequisites_2_1.add(course1_2);
+			prerequisites_2_1.add(course1_4);
+			
+			Course course2 = new Course("EECS 2030","advanced computer programming", 3.0, prerequisites_2);
+			Course course2_1 = new Course("EECS 2011","computational organization", 4.0, prerequisites_2_1);
+			Course course2_2 = new Course("EECS 2311","computational project", 3.0, prerequisites_2);
+			
+			//pre for 3311
+			ArrayList<Course> prerequisites_3 = new ArrayList<Course>();
+			prerequisites_3.add(course2);
+			prerequisites_3.add(course2_2);
+			
+			Course course3 = new Course("EECS 3311","advanced computational project", 3.0, prerequisites_3);
+			
+			all_Courses = new ArrayList<Course>();
+			
+			all_Courses.add(course1);
+			all_Courses.add(course1_2);
+			all_Courses.add(course1_3);
+			all_Courses.add(course1_4);
+			all_Courses.add(course2);
+			all_Courses.add(course2_1);
+			all_Courses.add(course2_2);
+			all_Courses.add(course3);
+		}
+		
+		 public static Courses getInstance() {
+			   if(courses == null) {
+			         courses = new Courses();
+			   }  
+			  
+			return courses;
+		   }
 
-	    //adds the course to the corresponding lists depending on the grade
-	    
-	    
-	    public boolean validInput (String grade) {
-	    	
-	    	ArrayList<String> validArray = new ArrayList<String>();
-	    	
-	    	validArray.add("A+");
-	    	validArray.add("A");
-	    	validArray.add("B+");
-	    	validArray.add("B");
-	    	validArray.add("C+");
-	    	validArray.add("C");
-	    	validArray.add("D+");
-	    	validArray.add("D");
-	    	validArray.add("F");
-	    	validArray.add("E");
-	    	
-	    	
-	    	return validArray.contains(grade);
-	    }
-	    public void storeCourseList(String courseName, String grade) {
-	    	
-	    	if (!validInput(grade)) {
-	    		throw new IllegalArgumentException();
-	    	}
-	        if (grade == "E" || grade == "F") {
-	        	unsatisfiedCourses.add(courseName);
-	        } 
-	        else {
-	            satisfiedCourses.add(courseName);
-	        }
-	    }
-	    //getter method for unsatisfied courses
-	    public List<String> getUnsatisfiedCourses() {
-	        return unsatisfiedCourses;
-	    }
-	    //getter method for satisfied courses
-	    public List<String> getSatisfiedCourses() {
-	        return satisfiedCourses;
-	    }
-
+		public ArrayList<Course> getAll_Courses() {
+			return all_Courses;
+		}
 	   
 }
