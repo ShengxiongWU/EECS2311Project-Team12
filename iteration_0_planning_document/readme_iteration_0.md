@@ -11,7 +11,7 @@
 * Priority: Medium                                                                          
 * Cost: 3-5 days
 
-#### Academic Record Database (we changed the database name to course enrollment)
+#### Academic Record Database
 * Create a user academic database to store the academic records of the student’s courses.
 * Priority- MEDIUM                                                                          
 * Cost: 3 days
@@ -25,16 +25,6 @@
 * Create a user database for managing the students’ information including their login information, academic records, and student personal information.
 * Priority: HIGH                                                                                      
 * Cost: 5-7 days
-
-#### Register user interface (new work)
-* Create a register user interface for students and admins to register to be a user of our system.
-* Priority: HIGH                                                                                      
-* Cost: 3 days
-
-#### Login user interface (new work)
-* Create a login user interface for students and admins to login to access our system.
-* Priority: HIGH                                                                                      
-* Cost: 3 days
 
 ---
 
@@ -81,13 +71,3 @@
 * required courses is showed in the degree requirements
 * Priority: Medium                                                                               
 * Cost: 3-5 days
-
-
-
-
-
-
-
-
-
-
