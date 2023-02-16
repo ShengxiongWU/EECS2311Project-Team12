@@ -292,7 +292,11 @@ public class Initial {
 
 			
 			private JTextField UsernameBox = null;
-			private JPasswordField PasswordBox = null;
+			private JTextField PasswordBox = null;
+			private JTextField IDBox = null;
+			private JTextField NameBox = null;
+			private JTextField AddressBox = null;
+			private JTextField DegreeBox = null;
 			private Map<String,String> DataBase = null;
 			private StudentRegister sr = null;
 			private Container container = null;
@@ -327,7 +331,7 @@ public class Initial {
 
 			}
 			private void InitialFrame() {
-				sr.setSize(400, 150);
+				sr.setSize(400, 350);
 				sr.setLocationRelativeTo(null);
 				container = sr.getContentPane();
 			}
@@ -346,7 +350,7 @@ public class Initial {
 				GridBagConstraints c2 = new GridBagConstraints();
 				GridBagConstraintsSetter(c2,0,1,0);
 				
-				PasswordBox = new JPasswordField();
+				PasswordBox = new JTextField();
 				PasswordBox.setColumns(10);
 				GridBagConstraints c3 = new GridBagConstraints();
 				GridBagConstraintsSetter(c3,4,2,70);
@@ -354,6 +358,42 @@ public class Initial {
 				JLabel Password = new JLabel("Password:");
 				GridBagConstraints c4 = new GridBagConstraints();
 				GridBagConstraintsSetter(c4,0,2,0);
+				
+				IDBox = new JTextField();
+				IDBox.setColumns(10);
+				GridBagConstraints c5 = new GridBagConstraints();
+				GridBagConstraintsSetter(c5,4,3,70);
+
+				JLabel ID = new JLabel("ID:");
+				GridBagConstraints c6 = new GridBagConstraints();
+				GridBagConstraintsSetter(c6,0,3,0);
+				
+				NameBox = new JPasswordField();
+				NameBox.setColumns(10);
+				GridBagConstraints c7 = new GridBagConstraints();
+				GridBagConstraintsSetter(c7,4,4,70);
+
+				JLabel Name = new JLabel("Name:");
+				GridBagConstraints c8 = new GridBagConstraints();
+				GridBagConstraintsSetter(c8,0,4,0);
+				
+				AddressBox = new JTextField();
+				AddressBox.setColumns(10);
+				GridBagConstraints c9 = new GridBagConstraints();
+				GridBagConstraintsSetter(c9,4,5,70);
+
+				JLabel Address = new JLabel("Address:");
+				GridBagConstraints c10 = new GridBagConstraints();
+				GridBagConstraintsSetter(c10,0,5,0);
+				
+				DegreeBox = new JPasswordField();
+				DegreeBox.setColumns(10);
+				GridBagConstraints c11 = new GridBagConstraints();
+				GridBagConstraintsSetter(c11,4,6,70);
+
+				JLabel Degree = new JLabel("Degree:");
+				GridBagConstraints c12 = new GridBagConstraints();
+				GridBagConstraintsSetter(c12,0,6,0);
 				
 				JLabel fill1 = new JLabel(" ");
 				GridBagConstraints cf1 = new GridBagConstraints();
@@ -364,16 +404,7 @@ public class Initial {
 				submit.addActionListener(new AccessListener(){
 					@Override
 					public void actionPerformed(ActionEvent e){
-						if(AccessChecker()) {
-							Error error = new Error(frame,"success");
-							sr.setVisible(false);
-						}
-						else {
-							Error error = new Error(frame,"fail");
-							error.setVisible(true);
-							System.exit(0);
 
-						}
 					}
 				});
 				
@@ -382,24 +413,19 @@ public class Initial {
 				p1.add(Username,c2); 
 				p1.add(PasswordBox,c3); 
 				p1.add(Password,c4);
+				p1.add(IDBox,c5); 
+				p1.add(ID,c6);
+				p1.add(NameBox,c7); 
+				p1.add(Name,c8);
+				p1.add(AddressBox,c9); 
+				p1.add(Address,c10);
+				p1.add(DegreeBox,c11); 
+				p1.add(Degree,c12);
 				p2.add(submit);
 			}
 			
 			
 
-			private boolean AccessChecker() {
-
-				if(DataBase.get(UsernameBox.getText())!=null) {
-				if(DataBase.get(UsernameBox.getText()).equals(new String(PasswordBox.getPassword()))) {
-			
-
-					return true;
-				}
-				}
-
-				return false;
-				
-			}
 			
 			private class AccessListener implements ActionListener{
 				
@@ -420,9 +446,12 @@ public class Initial {
 		
 		private class AdminRegister extends JDialog{
 
-			
 			private JTextField UsernameBox = null;
-			private JPasswordField PasswordBox = null;
+			private JTextField PasswordBox = null;
+			private JTextField IDBox = null;
+			private JTextField NameBox = null;
+			private JTextField AddressBox = null;
+			private JTextField FacultyBox = null;
 			private Map<String,String> DataBase = null;
 			private AdminRegister ad = null;
 			private Container container = null;
@@ -457,7 +486,7 @@ public class Initial {
 
 			}
 			private void InitialFrame() {
-				ad.setSize(400, 150);
+				ad.setSize(400, 350);
 				ad.setLocationRelativeTo(null);
 				container = ad.getContentPane();
 			}
@@ -476,7 +505,7 @@ public class Initial {
 				GridBagConstraints c2 = new GridBagConstraints();
 				GridBagConstraintsSetter(c2,0,1,0);
 				
-				PasswordBox = new JPasswordField();
+				PasswordBox = new JTextField();
 				PasswordBox.setColumns(10);
 				GridBagConstraints c3 = new GridBagConstraints();
 				GridBagConstraintsSetter(c3,4,2,70);
@@ -484,6 +513,42 @@ public class Initial {
 				JLabel Password = new JLabel("Password:");
 				GridBagConstraints c4 = new GridBagConstraints();
 				GridBagConstraintsSetter(c4,0,2,0);
+				
+				IDBox = new JTextField();
+				IDBox.setColumns(10);
+				GridBagConstraints c5 = new GridBagConstraints();
+				GridBagConstraintsSetter(c5,4,3,70);
+
+				JLabel ID = new JLabel("ID:");
+				GridBagConstraints c6 = new GridBagConstraints();
+				GridBagConstraintsSetter(c6,0,3,0);
+				
+				NameBox = new JPasswordField();
+				NameBox.setColumns(10);
+				GridBagConstraints c7 = new GridBagConstraints();
+				GridBagConstraintsSetter(c7,4,4,70);
+
+				JLabel Name = new JLabel("Name:");
+				GridBagConstraints c8 = new GridBagConstraints();
+				GridBagConstraintsSetter(c8,0,4,0);
+				
+				AddressBox = new JTextField();
+				AddressBox.setColumns(10);
+				GridBagConstraints c9 = new GridBagConstraints();
+				GridBagConstraintsSetter(c9,4,5,70);
+
+				JLabel Address = new JLabel("Address:");
+				GridBagConstraints c10 = new GridBagConstraints();
+				GridBagConstraintsSetter(c10,0,5,0);
+				
+				FacultyBox = new JPasswordField();
+				FacultyBox.setColumns(10);
+				GridBagConstraints c11 = new GridBagConstraints();
+				GridBagConstraintsSetter(c11,4,6,70);
+				
+				JLabel Faculty = new JLabel("Faculty:");
+				GridBagConstraints c12 = new GridBagConstraints();
+				GridBagConstraintsSetter(c12,0,6,0);
 				
 				JLabel fill1 = new JLabel(" ");
 				GridBagConstraints cf1 = new GridBagConstraints();
@@ -494,16 +559,7 @@ public class Initial {
 				submit.addActionListener(new AccessListener(){
 					@Override
 					public void actionPerformed(ActionEvent e){
-						if(AccessChecker()) {
-							Error error = new Error(frame,"success");
-							ad.setVisible(false);
-						}
-						else {
-							Error error = new Error(frame,"fail");
-							error.setVisible(true);
-							System.exit(0);
 
-						}
 					}
 				});
 				
@@ -512,24 +568,18 @@ public class Initial {
 				p1.add(Username,c2); 
 				p1.add(PasswordBox,c3); 
 				p1.add(Password,c4);
+				p1.add(IDBox,c5); 
+				p1.add(ID,c6);
+				p1.add(NameBox,c7); 
+				p1.add(Name,c8);
+				p1.add(AddressBox,c9); 
+				p1.add(Address,c10);
+				p1.add(FacultyBox,c11); 
+				p1.add(Faculty,c12);
 				p2.add(submit);
 			}
 			
 			
-
-			private boolean AccessChecker() {
-
-				if(DataBase.get(UsernameBox.getText())!=null) {
-				if(DataBase.get(UsernameBox.getText()).equals(new String(PasswordBox.getPassword()))) {
-			
-
-					return true;
-				}
-				}
-
-				return false;
-				
-			}
 			
 			private class AccessListener implements ActionListener{
 				
