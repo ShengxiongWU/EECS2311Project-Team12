@@ -4,10 +4,6 @@ public class Student extends User{
 	private String Name;
 	private String Degree;
 	private String Address;
-	
-	
-	
-	
 
 	public Student(String name, String degree,String Address, String ID, String Account, String Password) {
 		super(ID,Account,Password);
