@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,11 +20,16 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import StubDB.Admin;
+import StubDB.Student;
+import StubDB.User;
+
 
 
 
 public class Initial {
 	
+	private static ArrayList<User> StubDB;
 	private JFrame frame = null;
 	private Container container = null;
 	private static Initial instance;
@@ -38,6 +44,7 @@ public class Initial {
 	private Initial() {
 		frame = new JFrame("Initial");
 		InitialFrame();
+		StubDB = new ArrayList<User>();
         GridBagLayout gridBag = new GridBagLayout();   
 		container.setLayout(new GridLayout(2,1));
 		JPanel p1 = new JPanel(gridBag);
@@ -98,7 +105,7 @@ public class Initial {
 		
 		private JTextField UsernameBox = null;
 		private JPasswordField PasswordBox = null;
-		private Map<String,String> DataBase = null;
+//		private Map<String,String> DataBase = null;
 		private Login lg = null;
 		private Container container = null;
 		
@@ -112,7 +119,7 @@ public class Initial {
 			JPanel p1 = new JPanel(gridBag);
 			JPanel p2 = new JPanel(new FlowLayout());
 			Map<String,String> db = new HashMap<String,String>();
-			DataBase = db;
+//			DataBase = db;
 			CreateAndSetComponent(p1,p2);
 			container.add(p1);
 			container.add(p2);
@@ -171,6 +178,7 @@ public class Initial {
 				public void actionPerformed(ActionEvent e){
 					if(AccessChecker()) {
 						Error error = new Error(frame,"success");
+						error.setVisible(true);
 						lg.setVisible(false);
 					}
 					else {
@@ -194,14 +202,13 @@ public class Initial {
 
 		private boolean AccessChecker() {
 
-			if(DataBase.get(UsernameBox.getText())!=null) {
-			if(DataBase.get(UsernameBox.getText()).equals(new String(PasswordBox.getPassword()))) {
-		
 
-				return true;
+			
+			for(User u: StubDB) {
+				if(u.getAccount().equals(UsernameBox.getText())&&u.getPassword().equals(new String(PasswordBox.getPassword()))) {
+					return true;
+				}
 			}
-			}
-
 			return false;
 			
 		}
@@ -209,7 +216,7 @@ public class Initial {
 		private class AccessListener implements ActionListener{
 			
 			public void actionPerformed(ActionEvent e) {
-				
+
 			}
 			
 			
@@ -368,7 +375,7 @@ public class Initial {
 				GridBagConstraints c6 = new GridBagConstraints();
 				GridBagConstraintsSetter(c6,0,3,0);
 				
-				NameBox = new JPasswordField();
+				NameBox = new JTextField();
 				NameBox.setColumns(10);
 				GridBagConstraints c7 = new GridBagConstraints();
 				GridBagConstraintsSetter(c7,4,4,70);
@@ -386,7 +393,7 @@ public class Initial {
 				GridBagConstraints c10 = new GridBagConstraints();
 				GridBagConstraintsSetter(c10,0,5,0);
 				
-				DegreeBox = new JPasswordField();
+				DegreeBox = new JTextField();
 				DegreeBox.setColumns(10);
 				GridBagConstraints c11 = new GridBagConstraints();
 				GridBagConstraintsSetter(c11,4,6,70);
@@ -404,7 +411,9 @@ public class Initial {
 				submit.addActionListener(new AccessListener(){
 					@Override
 					public void actionPerformed(ActionEvent e){
-
+						StubDB.add(new Student(NameBox.getText(),DegreeBox.getText(),AddressBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText()));
+					
+//					System.out.println(UsernameBox.getText()+" "+PasswordBox.getText());
 					}
 				});
 				
@@ -523,7 +532,7 @@ public class Initial {
 				GridBagConstraints c6 = new GridBagConstraints();
 				GridBagConstraintsSetter(c6,0,3,0);
 				
-				NameBox = new JPasswordField();
+				NameBox = new JTextField();
 				NameBox.setColumns(10);
 				GridBagConstraints c7 = new GridBagConstraints();
 				GridBagConstraintsSetter(c7,4,4,70);
@@ -541,7 +550,7 @@ public class Initial {
 				GridBagConstraints c10 = new GridBagConstraints();
 				GridBagConstraintsSetter(c10,0,5,0);
 				
-				FacultyBox = new JPasswordField();
+				FacultyBox = new JTextField();
 				FacultyBox.setColumns(10);
 				GridBagConstraints c11 = new GridBagConstraints();
 				GridBagConstraintsSetter(c11,4,6,70);
@@ -559,6 +568,7 @@ public class Initial {
 				submit.addActionListener(new AccessListener(){
 					@Override
 					public void actionPerformed(ActionEvent e){
+						StubDB.add(new Admin(FacultyBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText()));
 
 					}
 				});
