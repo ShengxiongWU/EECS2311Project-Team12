@@ -1,11 +1,59 @@
 package Backend;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Enrollments {
 	private ArrayList<Enrollment> enrollments;
+	private static Enrollments enroll_list;
+	
+	private Enrollments() {
+		Student student1 = new Student("bruce", "Software Engineering","North York", "316408091", "123456789", "123456");
+		Student student2 = new Student("wu", "Software Engineering","North York", "316408092", "123456781", "wu123");
+		Student student3 = new Student("dave", "Software Engineering","North York", "316408093", "123456782", "dave456");
+		
+		ArrayList<Course> course_list = Courses.getInstance().getAll_Courses();
+		
+		Enrollment enroll_1 = new Enrollment(course_list.get(0), student1, "finished", "Fall", "B+");
+		Enrollment enroll_2 = new Enrollment(course_list.get(4), student1, "finished", "Fall", "C");
+		Enrollment enroll_3 = new Enrollment(course_list.get(2), student1, "finished", "Fall", "A");
+		Enrollment enroll_4 = new Enrollment(course_list.get(5), student1, "in progress", "Winter", "NGA");
+		
+		Enrollment enroll_5 = new Enrollment(course_list.get(0), student2, "in progress", "Fall", "NGA");
+		Enrollment enroll_6 = new Enrollment(course_list.get(1), student2, "finished", "Fall", "C");
+		Enrollment enroll_7 = new Enrollment(course_list.get(2), student2, "finished", "Fall", "A");
+		Enrollment enroll_8 = new Enrollment(course_list.get(5), student2, "in progress", "Winter", "NGA");
+		Enrollment enroll_9 = new Enrollment(course_list.get(7), student2, "finished", "Fall", "F");
+		
+		Enrollment enroll_10 = new Enrollment(course_list.get(0), student3, "in progress", "Fall", "NGA");
+		Enrollment enroll_11 = new Enrollment(course_list.get(1), student3, "finished", "Fall", "A+");
+		Enrollment enroll_12 = new Enrollment(course_list.get(2), student3, "finished", "Fall", "F");
+		
+		enrollments = new ArrayList<Enrollment>();
+		
+		enrollments.add(enroll_1);
+		enrollments.add(enroll_2);
+		enrollments.add(enroll_3);
+		enrollments.add(enroll_4);
+		enrollments.add(enroll_5);
+		enrollments.add(enroll_7);
+		enrollments.add(enroll_8);
+		enrollments.add(enroll_9);
+		enrollments.add(enroll_10);
+		enrollments.add(enroll_11);
+		enrollments.add(enroll_12);
+	}
+	
+	 public static Enrollments getInstance() {
+		   if(enroll_list == null) {
+		         enroll_list = new Enrollments();
+		   }  
+		  
+		return enroll_list;
+	   }
+
+	
 	
 	public double getOverAllGPA(String student_id) {
-		double sumGrade = 0;
 		double sumCredit = 0;
 		for(int i = 0; i<enrollments.size(); i++) {
 			if(enrollments.get(i).getStudent().getID() == student_id) {
@@ -55,14 +103,40 @@ public class Enrollments {
 		return gpa;
 	}
 	
-	public ArrayLst<Course> getSatisfiedCourse(String student_id){
+	public ArrayList<Course> getSatisfiedCourse(String student_id){
+		ArrayList<Course> satisfiedCourse = new ArrayList<Course>();
+		for(int i = 0; i<enrollments.size(); i++) {
+			if(enrollments.get(i).getStudent().getID() == student_id && Objects.nonNull(enrollments.get(i).getGrade()) 
+			   && enrollments.get(i).getGrade() != "NGA" && enrollments.get(i).getGrade() != "F") {
+				satisfiedCourse.add(enrollments.get(i).getEnrolled());
+		}
+	}
+		return satisfiedCourse;
+	}
+	
+	public ArrayList<Course> getUnsatisfiedCourse(String student_id){
+		ArrayList<Course> unsatisfiedCourse = new ArrayList<Course>();
+		for(int i = 0; i<enrollments.size(); i++) {
+			if(enrollments.get(i).getStudent().getID() == student_id && (Objects.isNull(enrollments.get(i).getGrade()) 
+			   || enrollments.get(i).getGrade() != "NGA" || enrollments.get(i).getGrade() != "F")) {
+				unsatisfiedCourse.add(enrollments.get(i).getEnrolled());
+		}
+	}
+		return unsatisfiedCourse;
+	}
+    
+	public ArrayList<Course> getAllCoursesEnrolled(String student_id){
+		ArrayList<Course> enrolledCourse = new ArrayList<Course>();
 		for(int i = 0; i<enrollments.size(); i++) {
 			if(enrollments.get(i).getStudent().getID() == student_id) {
-				String grade = enrollments.get(i).getGrade();
-				String status = enrollments.get(i).getEnrolled();
-				sumCredit += credit;
-			}
+				enrolledCourse.add(enrollments.get(i).getEnrolled());
 		}
+	}
+		return enrolledCourse;
+	}
+	
+	public ArrayList<Enrollment> getEnrollments() {
+		return enrollments;
 	}
 	
 }
