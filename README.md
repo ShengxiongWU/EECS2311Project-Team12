@@ -29,7 +29,6 @@
 #### Register user interface (new work)
 * Create a register user interface for students and admins to register to be a user of our system.
 * Priority: HIGH                                                                                      
-* Cost: 5-7 days
 * Cost: 3 days
 
 #### Login user interface (new work)
