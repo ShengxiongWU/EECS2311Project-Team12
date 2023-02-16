@@ -5,10 +5,13 @@ public class Student extends User{
 	private String Degree;
 	private String Address;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	
 	
 	
+=======
+>>>>>>> main
 =======
 >>>>>>> main
 
