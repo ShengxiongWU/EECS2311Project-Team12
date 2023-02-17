@@ -7,26 +7,24 @@ public class Enrollments {
 	private static Enrollments enroll_list;
 	
 	private Enrollments() {
-		Student student1 = new Student("bruce", "Software Engineering","North York", "316408091", "123456789", "123456");
-		Student student2 = new Student("wu", "Software Engineering","North York", "316408092", "123456781", "wu123");
-		Student student3 = new Student("dave", "Software Engineering","North York", "316408093", "123456782", "dave456");
+		ArrayList<Student> Student = Students.getInstance().getStudents();
 		
 		ArrayList<Course> course_list = Courses.getInstance().getAll_Courses();
 		
-		Enrollment enroll_1 = new Enrollment(course_list.get(0), student1, "finished", "Fall", "B+");
-		Enrollment enroll_2 = new Enrollment(course_list.get(4), student1, "finished", "Fall", "C");
-		Enrollment enroll_3 = new Enrollment(course_list.get(2), student1, "finished", "Fall", "A");
-		Enrollment enroll_4 = new Enrollment(course_list.get(5), student1, "in progress", "Winter", "NGA");
+		Enrollment enroll_1 = new Enrollment(course_list.get(0), Student.get(0), "finished", "Fall", "B+");
+		Enrollment enroll_2 = new Enrollment(course_list.get(4), Student.get(0), "finished", "Fall", "C");
+		Enrollment enroll_3 = new Enrollment(course_list.get(2), Student.get(0), "finished", "Fall", "A");
+		Enrollment enroll_4 = new Enrollment(course_list.get(5), Student.get(0), "in progress", "Winter", "NGA");
 		
-		Enrollment enroll_5 = new Enrollment(course_list.get(0), student2, "in progress", "Fall", "NGA");
-		Enrollment enroll_6 = new Enrollment(course_list.get(1), student2, "finished", "Fall", "C");
-		Enrollment enroll_7 = new Enrollment(course_list.get(2), student2, "finished", "Fall", "A");
-		Enrollment enroll_8 = new Enrollment(course_list.get(5), student2, "in progress", "Winter", "NGA");
-		Enrollment enroll_9 = new Enrollment(course_list.get(7), student2, "finished", "Fall", "F");
+		Enrollment enroll_5 = new Enrollment(course_list.get(0), Student.get(1), "in progress", "Fall", "NGA");
+		Enrollment enroll_6 = new Enrollment(course_list.get(1), Student.get(1), "finished", "Fall", "C");
+		Enrollment enroll_7 = new Enrollment(course_list.get(2), Student.get(1), "finished", "Fall", "A");
+		Enrollment enroll_8 = new Enrollment(course_list.get(5), Student.get(1), "in progress", "Winter", "NGA");
+		Enrollment enroll_9 = new Enrollment(course_list.get(7), Student.get(1), "finished", "Fall", "F");
 		
-		Enrollment enroll_10 = new Enrollment(course_list.get(0), student3, "in progress", "Fall", "NGA");
-		Enrollment enroll_11 = new Enrollment(course_list.get(1), student3, "finished", "Fall", "A+");
-		Enrollment enroll_12 = new Enrollment(course_list.get(2), student3, "finished", "Fall", "F");
+		Enrollment enroll_10 = new Enrollment(course_list.get(0), Student.get(2), "in progress", "Fall", "NGA");
+		Enrollment enroll_11 = new Enrollment(course_list.get(1), Student.get(2), "finished", "Fall", "A+");
+		Enrollment enroll_12 = new Enrollment(course_list.get(2), Student.get(2), "finished", "Fall", "F");
 		
 		enrollments = new ArrayList<Enrollment>();
 		
