@@ -98,7 +98,7 @@ public class Enrollments {
 			}
 		}
 		
-		return gpa;
+		return Math.round(gpa * 10.0) / 10.0;
 	}
 	
 	public ArrayList<Course> getSatisfiedCourse(String student_id){

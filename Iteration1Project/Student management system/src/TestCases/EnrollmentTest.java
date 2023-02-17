@@ -21,6 +21,17 @@ public class EnrollmentTest {
 		courses = Courses.getInstance();
 		
 	}
+	
+	
+	@Test
+	public void getOverallGPATest() {
+		String[] studentIDs = {"316408091","316408092","316408093"};
+		Double[] expected = {4.4,1.8,3.6};
+		assertEquals(enroll.getOverAllGPA(studentIDs[0]), expected[0], 0.1);
+		assertEquals(enroll.getOverAllGPA(studentIDs[1]), expected[1], 0.1);
+		assertEquals(enroll.getOverAllGPA(studentIDs[2]), expected[2], 0.1);
+	}
+	
 	@Test
 	public void getAllCoursesEnrolledTest() {
 		/*
