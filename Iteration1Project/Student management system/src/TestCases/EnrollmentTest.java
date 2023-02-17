@@ -22,11 +22,35 @@ public class EnrollmentTest {
 		
 	}
 	
+	@Test
+	public void getSatisfiedCoursesTest() {
+		//Expected Data
+		String[] studentIDs = {"316408091","316408092","316408093"};
+		String[] sat1CourseID = {"EECS 1090", "EECS 2030", "EECS 1012"};
+		String[] sat2CourseID = {"EECS 1012"};
+		String[] sat3CourseID = {"EECS 1019"};
+		
+		ArrayList<Course> sat1 = enroll.getSatisfiedCourse(studentIDs[0]);
+		ArrayList<Course> sat2 = enroll.getSatisfiedCourse(studentIDs[1]);
+		ArrayList<Course> sat3 = enroll.getSatisfiedCourse(studentIDs[2]);
+		for(int i = 0; i<sat1.size(); i++) {
+			assertEquals(sat1.get(i).getCourse_id(), sat1CourseID[i]);
+		}
+		for(int i = 0; i<sat2.size(); i++) {
+			assertEquals(sat2.get(i).getCourse_id(), sat2CourseID[i]);
+		}
+		for(int i = 0; i<sat3.size(); i++) {
+			assertEquals(sat3.get(i).getCourse_id(), sat3CourseID[i]);
+		}
+		
+	}
+	
 	
 	@Test
 	public void getOverallGPATest() {
 		String[] studentIDs = {"316408091","316408092","316408093"};
-		Double[] expected = {4.4,1.8,3.6};
+		//Expected Data
+		Double[] expected = {4.4, 1.8, 3.6};
 		assertEquals(enroll.getOverAllGPA(studentIDs[0]), expected[0], 0.1);
 		assertEquals(enroll.getOverAllGPA(studentIDs[1]), expected[1], 0.1);
 		assertEquals(enroll.getOverAllGPA(studentIDs[2]), expected[2], 0.1);
@@ -37,7 +61,10 @@ public class EnrollmentTest {
 		/*
 		 * Explicit testing for the main courses for ease of developer understanding.
 		 */
+		
 		ArrayList<Course> enrollCourses = enroll.getAllCoursesEnrolled("316408091");
+		
+		//Expected Data
 		String[] courseID = {"EECS 1090", "EECS 2030", "EECS 1012", "EECS 2011"};
 		Double[] credits = {3.0, 3.0, 3.0, 4.0};
 		String[] courseName = {"Computational Logic", "advanced computer programming", "introduction to webprogramming", "computational organization"};
