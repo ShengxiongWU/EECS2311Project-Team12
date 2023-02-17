@@ -41,11 +41,34 @@ public class CoursesTest {
 	@Test
 	public void Test3() {
 		String A1 = "EECS 2030";
-		
 		assertEquals(A1,allCourses.get(4).getCourse_id());
 	}
 	
 	@Test
-	public void Test4() {}
+	public void Test4() {
+		Course S1 = new Course("ADMS 1000","intro to Buisness", 3.0,new ArrayList<Course>());
+		ArrayList<Course> pre = new ArrayList<Course>();
+		pre.add(S1);
+		Course S2 = new Course("ADMS 1001","Funtion And Stragies of Buisness", 3.0,pre);
+		Course S3 = new Course("PHYS 1800","Engineering Mechanics", 3.0,new ArrayList<Course>());
+		ArrayList<Course> pre1 = new ArrayList<Course>();
+		pre.add(S3);
+		Course S4 = new Course("PHYS 1801","Electricity, Magnetism and Optics for Engineers", 3.0,pre1);
+		Course S5 = new Course("MATHS 1013","Applied Calculus I ", 3.0,new ArrayList<Course>());
+		ArrayList<Course> pre2 = new ArrayList<Course>();
+		pre.add(S5);
+		Course S6 = new Course("MATHS 1014","Applied Calculus II ", 3.0,new ArrayList<Course>());
+		allCourses.add(S1);
+		allCourses.add(S2);
+		allCourses.add(S3);
+		allCourses.add(S4);
+		allCourses.add(S5);
+		allCourses.add(S6);
+		assertFalse(courses.getAll_Courses().size() == 0);
+		assertEquals(S6,allCourses.get(allCourses.size()-1));
+		assertEquals(S1,allCourses.get(allCourses.size()-6));
+		assertEquals(S4,allCourses.get(allCourses.size()-3));
+		
+	}
 	
 }
