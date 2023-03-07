@@ -46,4 +46,11 @@ public class User {
     public int getCompletedCourses() {
 	    return completedCourses;
 	 }
+    public void setCompletedCourses(int completedCourses) {
+        this.completedCourses = completedCourses;
+    }
+
+    public int getAdditionalCourses() {
+        return totalCourses - completedCourses;
+    }
 }
