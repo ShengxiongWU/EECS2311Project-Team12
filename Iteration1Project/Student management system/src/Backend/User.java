@@ -15,6 +15,8 @@ public class User {
 		this.ID = ID;
 		this.Account = Account;
 		this.Password = Password;
+		this.totalCourses = totalCourses;
+	    this.completedCourses = completedCourses;
 	}
 	
 	public String getID() {
