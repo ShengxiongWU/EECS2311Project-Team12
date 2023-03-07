@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class CoursesTest {
-	
+
 	Courses courses;
 	ArrayList<Course> allCourses;
 
@@ -24,7 +24,7 @@ public class CoursesTest {
 	public void test() {
 		assertTrue(courses.getAll_Courses().size() != 0);
 	}
-	
+
 	@Test
 	public void test2() {
 		Course c2 = new Course("EECS 1000","intro to programming", 3.0,new ArrayList<Course>());
@@ -33,17 +33,17 @@ public class CoursesTest {
 		Course c1 = new Course("EECS 4412","data mining", 3.0,pre);
 		allCourses.add(c1);
 		allCourses.add(c2);
-		
+
 		assertEquals(c1,allCourses.get(allCourses.size()-2));
 		assertEquals(c2,allCourses.get(allCourses.size()-1));
 	}
-	
+
 	@Test
 	public void Test3() {
 		String A1 = "EECS 2030";
 		assertEquals(A1,allCourses.get(4).getCourse_id());
 	}
-	
+
 	@Test
 	public void Test4() {
 		Course S1 = new Course("ADMS 1000","intro to Buisness", 3.0,new ArrayList<Course>());
@@ -68,7 +68,7 @@ public class CoursesTest {
 		assertEquals(S6,allCourses.get(allCourses.size()-1));
 		assertEquals(S1,allCourses.get(allCourses.size()-6));
 		assertEquals(S4,allCourses.get(allCourses.size()-3));
-		
+
 	}
-	
+
 }

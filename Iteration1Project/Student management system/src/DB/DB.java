@@ -199,4 +199,37 @@ public class DB {
     	
     	return result;
     }
+    
+    public ArrayList<ArrayList<String>> getEnrolledCourses(String student_id){
+        ArrayList<ArrayList<String>> records = new ArrayList<ArrayList<String>>();
+        try {
+            String sql = "select * from course_enrollment where student_id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, student_id);
+            ResultSet rs = pstmt.executeQuery();
+
+             while(rs.next()) {
+                     ArrayList<String> record = new ArrayList<String>();
+                    String course_id = rs.getString("course_id");
+                    String name = rs.getString("name");
+                    String student_idr = rs.getString("student_id");
+                    String status = rs.getString("status");
+                    String term_taken = rs.getString("term_taken");
+                    String grade = rs.getString("grade");
+                    record.add(course_id);
+                    record.add(name);
+                    record.add(student_idr);
+                    record.add(status);
+                    record.add(term_taken);
+                    record.add(grade);
+                    records.add(record);
+                 }
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return records;
+    }
 }
