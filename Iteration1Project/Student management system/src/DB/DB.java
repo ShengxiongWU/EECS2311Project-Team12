@@ -115,7 +115,7 @@ public class DB {
 	}
 	public boolean addCourse(String studentId, String name, String courseId, String term) {
 		String query = String.format("INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade) "
-				+ "VALUES(%s,%s,%s,'InProgress',%s,'NGA');",studentId, name, courseId,term);
+				+ "VALUES(%s,%s,%s,'InProgress',%s,'NGA');",courseId, name, studentId,term);
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
