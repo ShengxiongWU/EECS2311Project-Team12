@@ -6,7 +6,7 @@ public class DB {
 	public String url;
 	public String user;
 	public String password;
-	public Connection conn;
+	public static Connection conn;
 	//    String url = "jdbc:mysql://127.0.0.1:3306";
 	//	String user = "root";
 	//    String password = "123456";
@@ -14,8 +14,8 @@ public class DB {
 	public DB(){
 		try {
 			this.url = "jdbc:mysql://localhost:3306";
-			this.user = user;
-			this.password = password;
+			this.user = "root";
+			this.password = "root1234";
 			conn = DriverManager.getConnection(url,user,password);
 			Statement statement = conn.createStatement();
 			String checkDB = "select Count(*), schema_name from information_schema.schemata where schema_name='db';";
