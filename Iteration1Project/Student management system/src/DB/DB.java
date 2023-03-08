@@ -115,7 +115,7 @@ public class DB {
 	}
 	public boolean addCourse(String studentId, String name, String courseId, String term) {
 		String query = String.format("INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade) "
-				+ "VALUES(%s,%s,%s,'InProgress',%s,'NGA');");
+				+ "VALUES(%s,%s,%s,'InProgress',%s,'NGA');",studentId, name, courseId,term);
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
@@ -133,7 +133,7 @@ public class DB {
 
 	}
 	public boolean dropCourse(String studentId, String courseId) {
-		String query = String.format("DELETE FROM course_enrollment WHERE student_id=$s and course_id=%s;");
+		String query = String.format("DELETE FROM course_enrollment WHERE student_id=$s and course_id=%s;",studentId, courseId);
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
