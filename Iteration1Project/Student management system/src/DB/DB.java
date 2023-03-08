@@ -14,8 +14,8 @@ public class DB {
 	public DB(){
 		try {
 			this.url = "jdbc:mysql://localhost:3306";
-			this.user = "username";
-			this.password = "password";
+			this.user = "root";
+			this.password = "root1234";
 			conn = DriverManager.getConnection(url,user,password);
 			Statement statement = conn.createStatement();
 			String checkDB = "select Count(*), schema_name from information_schema.schemata where schema_name='db';";
