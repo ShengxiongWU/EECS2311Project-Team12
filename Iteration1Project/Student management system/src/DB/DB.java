@@ -14,8 +14,8 @@ public class DB {
 	public DB(){
 		try {
 			this.url = "jdbc:mysql://localhost:3306";
-			this.user = "root";
-			this.password = "!!RootEyes!!";
+			this.user = user;
+			this.password = password;
 			conn = DriverManager.getConnection(url,user,password);
 			Statement statement = conn.createStatement();
 			String checkDB = "select Count(*), schema_name from information_schema.schemata where schema_name='db';";
@@ -115,7 +115,25 @@ public class DB {
 	}
 	public boolean addCourse(String studentId, String name, String courseId, String term) {
 		String query = String.format("INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade) "
-				+ "VALUES(%s,%s,%s,'InProgress',%s,'')");
+				+ "VALUES(%s,%s,%s,'InProgress',%s,'InProgress');");
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+
+			int rowAffected = pstmt.executeUpdate();
+			if(rowAffected == 1)
+			{
+				return true;
+			}
+
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+
+	}
+	public boolean dropCourse(String studentId, String courseId) {
+		String query = String.format("DELETE FROM course_enrollment WHERE student_id=$s and course_id=%s;");
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
