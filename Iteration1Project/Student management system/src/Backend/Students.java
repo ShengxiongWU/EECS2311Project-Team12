@@ -1,11 +1,10 @@
 package Backend;
-
 import java.util.ArrayList;
 
 public class Students {
 	private ArrayList<Student> Students;
 	private static Students Student_list;
-	
+	private DB db = DB.getInstance();
 	private Students() {
 		Student student1 = new Student("bruce", "Software Engineering","North York", "316408091", "123456789", "123456");
 		Student student2 = new Student("wu", "Software Engineering","North York", "316408092", "123456781", "wu123");

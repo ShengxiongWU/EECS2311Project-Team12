@@ -1,15 +1,16 @@
 package Backend;
-
 public class Student extends User{
 	private String Name;
 	private String Degree;
 	private String Address;
-
+    private DB db = DB.getInstance();
+    
 	public Student(String name, String degree,String Address, String ID, String Account, String Password) {
 		super(ID,Account,Password);
 		this.Name = name;
 		this.Degree = degree;
 		this.Address = Address;
+		db.enroll(ID, name, Account, Password, Address, degree);
 	}
 	
 	public String getName() {

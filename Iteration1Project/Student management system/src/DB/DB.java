@@ -10,12 +10,19 @@ public class DB {
 	//    String url = "jdbc:mysql://127.0.0.1:3306";
 	//	String user = "root";
 	//    String password = "123456";
-
-	public DB(){
+	private static DB db;
+	
+	private DB(){
 		try {
+<<<<<<< HEAD
 			this.url = "jdbc:mysql://localhost:3306";
 			this.user = "root";
 			this.password = "root1234";
+=======
+		   String url = "jdbc:mysql://127.0.0.1:3306";
+		   String user = "root";
+		    String password = "123456";
+>>>>>>> main
 			conn = DriverManager.getConnection(url,user,password);
 			Statement statement = conn.createStatement();
 			String checkDB = "select Count(*), schema_name from information_schema.schemata where schema_name='db';";
@@ -73,8 +80,10 @@ public class DB {
 				System.out.println("course enrollment table created successfully...");
 				statement.executeUpdate(create_adminTable);
 				System.out.println("admin table created successfully...");
-				sampleDB();
+//				sampleDB();
 			}else {
+				statement.executeUpdate(use_database);
+				System.out.println("Database used successfully...");
 				System.out.println("Database already created and inserted into...");
 			}
 
@@ -84,40 +93,55 @@ public class DB {
 			e.printStackTrace();
 		}
 	}
+	
+	 public static DB getInstance() {
+		   if(db == null) {
+			   db = new DB();
+		   }  
+		  
+		return db;
+	   }
 
-	public void sampleDB() {
+//	public void sampleDB() {
+//		try {
+//			conn = DriverManager.getConnection(this.url + "/db",this.user,this.password);
+//			Statement statement = conn.createStatement();
+//
+//			String insert_student_1 = "insert into students values('218041103','matthew','145214321', 'mattpat1','Toronto','software engineering');";
+//			String insert_student_2 = "insert into students values('218041106','joe','171456998', 'joeman','Toronto','software engineering');";
+//			statement.executeUpdate(insert_student_1);
+//			statement.executeUpdate(insert_student_2);
+//			System.out.println("inserted students successfully...");
+//
+//			String insert_course_1 = "insert into courses values('EECS2030', 'Data Structures', '3.0', 'EECS2011 EECS1090');";
+//			String insert_course_2 = "insert into courses values('EECS1090', 'Intro Computer Science Logic', '3.0', 'EECS 1019');";
+//			statement.executeUpdate(insert_course_1);
+//			statement.executeUpdate(insert_course_2);
+//			System.out.println("inserted courses successfully...");
+//
+//			String insert_enrollment_1 = "insert into course_enrollment values('EECS2030','Data Structures','218041103', 'Completed','fall', 'A');";
+//			String insert_enrollment_4 = "insert into course_enrollment values('EECS2030','Data Structures','218041106', 'InProgress','winter', 'C+');";
+//
+//			statement.executeUpdate(insert_enrollment_1);
+//			statement.executeUpdate(insert_enrollment_4);
+//			System.out.println("inserted enrollments successfully...");
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+
+	 
+	public boolean addCourse(String id, String name, String credit, String prequisites) {
 		try {
-			conn = DriverManager.getConnection(this.url + "/db",this.user,this.password);
-			Statement statement = conn.createStatement();
+			String sql = "INSERT INTO courses(id,name,credit,prequisites) "
+					+ "VALUES(?,?,?,?)";
 
-			String insert_student_1 = "insert into students values('218041103','matthew','145214321', 'mattpat1','Toronto','software engineering');";
-			String insert_student_2 = "insert into students values('218041106','joe','171456998', 'joeman','Toronto','software engineering');";
-			statement.executeUpdate(insert_student_1);
-			statement.executeUpdate(insert_student_2);
-			System.out.println("inserted students successfully...");
-
-			String insert_course_1 = "insert into courses values('EECS2030', 'Data Structures', '3.0', 'EECS2011 EECS1090');";
-			String insert_course_2 = "insert into courses values('EECS1090', 'Intro Computer Science Logic', '3.0', 'EECS 1019');";
-			statement.executeUpdate(insert_course_1);
-			statement.executeUpdate(insert_course_2);
-			System.out.println("inserted courses successfully...");
-
-			String insert_enrollment_1 = "insert into course_enrollment values('EECS2030','Data Structures','218041103', 'Completed','fall', 'A');";
-			String insert_enrollment_4 = "insert into course_enrollment values('EECS2030','Data Structures','218041106', 'InProgress','winter', 'C+');";
-
-			statement.executeUpdate(insert_enrollment_1);
-			statement.executeUpdate(insert_enrollment_4);
-			System.out.println("inserted enrollments successfully...");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	public static boolean addCourse(String studentId, String name, String courseId, String term) {
-		String query = String.format("INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade) "
-				+ "VALUES(%s,%s,%s,'InProgress',%s,'NGA');",courseId, name, studentId,term);
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, id);
+			pstmt.setString(2, name);
+			pstmt.setString(3, credit);
+			pstmt.setString(4, prequisites);
 
 			int rowAffected = pstmt.executeUpdate();
 			if(rowAffected == 1)
@@ -129,10 +153,29 @@ public class DB {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
-
-	}
-	public static boolean dropCourse(String studentId, String courseId) {
+		return false;	
+	 }
+	
+//	public boolean addEnrollment(String studentId, String name, String courseId, String term) {
+//		String query = String.format("INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade) "
+//				+ "VALUES(%s,%s,%s,%s,%s,%s);",courseId, name, studentId,term);
+//		try {
+//			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+//
+//			int rowAffected = pstmt.executeUpdate();
+//			if(rowAffected == 1)
+//			{
+//				return true;
+//			}
+//
+//		}
+//		catch(SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return false;
+//
+//	}
+	public boolean dropEnrollment(String studentId, String courseId) {
 		String query = String.format("DELETE FROM course_enrollment WHERE student_id=$s and course_id=%s;",studentId, courseId);
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
@@ -151,18 +194,19 @@ public class DB {
 
 	}
 
-	public static boolean enroll(String id, String account, String password, String address, String degree) {
+	public boolean enroll(String id, String name,String account, String password, String address, String degree) {
 		try {
-			String sql = "INSERT INTO students(id,account,password,address,degree) "
-					+ "VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO students(id,name,account,password,address,degree) "
+					+ "VALUES(?,?,?,?,?,?)";
 
 			PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 
 			pstmt.setString(1, id);
-			pstmt.setString(2, account);
-			pstmt.setString(3, password);
-			pstmt.setString(4, address);
-			pstmt.setString(5, degree);
+			pstmt.setString(2, name);
+			pstmt.setString(3, account);
+			pstmt.setString(4, password);
+			pstmt.setString(5, address);
+			pstmt.setString(6, degree);
 
 			int rowAffected = pstmt.executeUpdate();
 			if(rowAffected == 1)
@@ -178,7 +222,7 @@ public class DB {
 	}
 
 
-	public static boolean login(String account, String password) {
+	public boolean login(String account, String password) {
 		try {
 			String sql = "select * from students where account = ? and password = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -197,7 +241,7 @@ public class DB {
 
 	}
 
-	public static String course_prerequisite(String course_id){
+	public String course_prerequisite(String course_id){
 		try {
 			String sql = "select prequisites from courses where id = " + "'" + course_id + "'";
 			Statement pstmt = conn.createStatement();
