@@ -150,25 +150,25 @@ public class DB {
 		return false;	
 	 }
 	
-//	public boolean addEnrollment(String studentId, String name, String courseId, String term) {
-//		String query = String.format("INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade) "
-//				+ "VALUES(%s,%s,%s,%s,%s,%s);",courseId, name, studentId,term);
-//		try {
-//			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
-//
-//			int rowAffected = pstmt.executeUpdate();
-//			if(rowAffected == 1)
-//			{
-//				return true;
-//			}
-//
-//		}
-//		catch(SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return false;
-//
-//	}
+	public boolean addEnrollment(String studentId, String name, String courseId, String term, String status, String grade) {
+		String query = String.format("INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade) "
+				+ "VALUES(%s,%s,%s,%s,%s,%s);",courseId, name, studentId,status, term, grade);
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+
+			int rowAffected = pstmt.executeUpdate();
+			if(rowAffected == 1)
+			{
+				return true;
+			}
+
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+
+	}
 	public boolean dropEnrollment(String studentId, String courseId) {
 		String query = String.format("DELETE FROM course_enrollment WHERE student_id=$s and course_id=%s;",studentId, courseId);
 		try {
@@ -187,8 +187,8 @@ public class DB {
 		return false;
 
 	}
-
-	public boolean enroll(String id, String name,String account, String password, String address, String degree) {
+	// add a student to student table
+	public boolean registerStudent(String id, String name,String account, String password, String address, String degree) {
 		try {
 			String sql = "INSERT INTO students(id,name,account,password,address,degree) "
 					+ "VALUES(?,?,?,?,?,?)";

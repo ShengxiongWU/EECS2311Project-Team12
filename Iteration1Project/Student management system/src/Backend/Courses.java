@@ -1,5 +1,4 @@
 package Backend;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +6,7 @@ import java.util.List;
 public class Courses {
 		private ArrayList<Course> all_Courses;
 		private static Courses courses;
-		
+		 private DB db = DB.getInstance();
 		private Courses() {
 			//1000 level course
 			Course course1 = new Course("EECS 1090", "Computational Logic", 3.0, new ArrayList<Course>()); 

@@ -7,13 +7,18 @@ public class Enrollment {
 	private String status;
 	private String term_taken;
 	private String grade;
-	
+	 private DB db = DB.getInstance();
+	 
 	public Enrollment(Course enroll, Student student, String status, String term_taken, String grade) {
 		this.enroll = enroll;
 		this.grade = grade;
 		this.status = status;
 		this.student = student;
 		this.term_taken = term_taken;
+		String course_id = enroll.getCourse_id();
+		String course_name = enroll.getName();
+		String student_id = student.getID();
+		db.addEnrollment(student_id, course_name, course_id, term_taken, status, grade);
 	}
 	
 	public Course getEnrolled() {
@@ -49,3 +54,4 @@ public class Enrollment {
 	
 	
 }
+

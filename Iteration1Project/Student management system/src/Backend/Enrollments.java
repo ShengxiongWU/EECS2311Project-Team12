@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Enrollments {
 	private ArrayList<Enrollment> enrollments;
 	private static Enrollments enroll_list;
-	
+	 private DB db = DB.getInstance();
 	private Enrollments() {
 		ArrayList<Student> Student = Students.getInstance().getStudents();
 		
@@ -48,8 +48,7 @@ public class Enrollments {
 		  
 		return enroll_list;
 	   }
-
-	
+    //delete enrollment from enrollments
 	
 	public double getOverAllGPA(String student_id) {
 		double sumCredit = 0;
