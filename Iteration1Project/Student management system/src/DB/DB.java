@@ -76,6 +76,8 @@ public class DB {
 				System.out.println("admin table created successfully...");
 //				sampleDB();
 			}else {
+				statement.executeUpdate(use_database);
+				System.out.println("Database used successfully...");
 				System.out.println("Database already created and inserted into...");
 			}
 
