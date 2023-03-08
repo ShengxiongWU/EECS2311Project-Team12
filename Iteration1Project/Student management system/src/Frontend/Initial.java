@@ -441,7 +441,7 @@ public class Initial {
 			private class AccessListener implements ActionListener{
 				
 				public void actionPerformed(ActionEvent e) {
-					
+					Student s = new Student(NameBox.getText(),DegreeBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText(),AddressBox.getText());
 				}
 				
 				
@@ -596,7 +596,7 @@ public class Initial {
 			private class AccessListener implements ActionListener{
 				
 				public void actionPerformed(ActionEvent e) {
-					
+					Admin a = new Admin(FacultyBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText());
 				}
 				
 				
