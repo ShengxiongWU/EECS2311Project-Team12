@@ -113,7 +113,7 @@ public class DB {
 			e.printStackTrace();
 		}
 	}
-	public boolean addCourse(String studentId, String name, String courseId, String term) {
+	public static boolean addCourse(String studentId, String name, String courseId, String term) {
 		String query = String.format("INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade) "
 				+ "VALUES(%s,%s,%s,'InProgress',%s,'NGA');",courseId, name, studentId,term);
 		try {
@@ -132,7 +132,7 @@ public class DB {
 		return false;
 
 	}
-	public boolean dropCourse(String studentId, String courseId) {
+	public static boolean dropCourse(String studentId, String courseId) {
 		String query = String.format("DELETE FROM course_enrollment WHERE student_id=$s and course_id=%s;",studentId, courseId);
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
@@ -151,7 +151,7 @@ public class DB {
 
 	}
 
-	public boolean enroll(String id, String account, String password, String address, String degree) {
+	public static boolean enroll(String id, String account, String password, String address, String degree) {
 		try {
 			String sql = "INSERT INTO students(id,account,password,address,degree) "
 					+ "VALUES(?,?,?,?,?)";
@@ -178,7 +178,7 @@ public class DB {
 	}
 
 
-	public boolean login(String account, String password) {
+	public static boolean login(String account, String password) {
 		try {
 			String sql = "select * from students where account = ? and password = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -197,7 +197,7 @@ public class DB {
 
 	}
 
-	public String course_prerequisite(String course_id){
+	public static String course_prerequisite(String course_id){
 		try {
 			String sql = "select prequisites from courses where id = " + "'" + course_id + "'";
 			Statement pstmt = conn.createStatement();
@@ -216,7 +216,7 @@ public class DB {
 		return null;
 	}
 
-	public ArrayList<String> student_info(String student_id){
+	public static ArrayList<String> student_info(String student_id){
 		ArrayList<String> result = new ArrayList<String>();
 		try {
 			String sql = "select * from students where id = ?";
@@ -247,7 +247,7 @@ public class DB {
 		return result;
 	}
 
-	public ArrayList<ArrayList<String>> getEnrolledCourses(String student_id){
+	public static ArrayList<ArrayList<String>> getEnrolledCourses(String student_id){
 		ArrayList<ArrayList<String>> records = new ArrayList<ArrayList<String>>();
 		try {
 			String sql = "select * from course_enrollment where student_id = ?";
