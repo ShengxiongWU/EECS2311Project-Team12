@@ -5,18 +5,13 @@ public class User {
 	private String ID;
 	private String Account;
 	private String Password;
-	private int totalCourses;
-    private int completedCourses;
-
-	
 	
 	
 	public User(String ID, String Account, String Password) {
 		this.ID = ID;
 		this.Account = Account;
 		this.Password = Password;
-		this.totalCourses = totalCourses;
-	    this.completedCourses = completedCourses;
+		
 	}
 	
 	public String getID() {
@@ -37,22 +32,5 @@ public class User {
 	public void setPassword(String password) {
 		Password = password;
 	}
-	 public int getTotalCourses() {
-	    return totalCourses;
-	}
-
-    public void setTotalCourses(int totalCourses) {
-	    this.totalCourses = totalCourses;
-    }
-
-    public int getCompletedCourses() {
-	    return completedCourses;
-	 }
-    public void setCompletedCourses(int completedCourses) {
-        this.completedCourses = completedCourses;
-    }
-
-    public int getAdditionalCourses() {
-        return totalCourses - completedCourses;
-    }
+	
 }
