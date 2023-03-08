@@ -44,11 +44,6 @@
 * Priority: HIGH                                                                                         
 * Cost: 3 days
 
-#### Elective Courses or General Knowledge Courses
-* This function will allow the user to know how many additional courses he/she has to take during his whole programs
-* Priority- MEDIUM                                                                                 
-* Cost: 4 days
-
 #### Allow academic advisors to edit course taken 
 * add/drop course function provided for admin
 * Priority:Meduim                                                                                    
