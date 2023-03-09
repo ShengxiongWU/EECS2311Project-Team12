@@ -30,6 +30,8 @@ public class Enrollments {
 		Enrollment enroll_11 = new Enrollment(course_list.get(1), Student.get(2), "finished", "Fall", "A+");
 		Enrollment enroll_12 = new Enrollment(course_list.get(2), Student.get(2), "finished", "Fall", "F");
 		
+	
+		
 		enrollments = new ArrayList<Enrollment>();
 		
 		enrollments.add(enroll_1);
@@ -139,16 +141,5 @@ public class Enrollments {
 	public ArrayList<Enrollment> getEnrollments() {
 		return enrollments;
 	}
-	public void dropCourse(String studentId, String courseId) {
-	    for (int i = 0; i < enrollments.size(); i++) {
-	        Enrollment enrollment = enrollments.get(i);
-	        if (enrollment.getStudent().getID().equals(studentId) &&
-	            enrollment.getEnrolled().getCourse_id().equals(courseId)) {
-	            enrollments.remove(i);
-	            break;
-	        }
-	    }
-	}
-
 	
 }

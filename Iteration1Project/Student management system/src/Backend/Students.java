@@ -13,7 +13,9 @@ public class Students {
 		Student student1 = new Student("bruce", "Software Engineering","North York", "316408091", "123456789", "123456");
 		Student student2 = new Student("wu", "Software Engineering","North York", "316408092", "123456781", "wu123");
 		Student student3 = new Student("dave", "Software Engineering","North York", "316408093", "123456782", "dave456");
-	
+		Student student4 = new Student("viral", "Software Engineering","North York", "316408095", "123456792", "viralp987");
+		
+		
 		Students = new ArrayList<Student>();
 		Students.add(student1);
 		Students.add(student2);

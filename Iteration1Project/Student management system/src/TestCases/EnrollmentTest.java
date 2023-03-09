@@ -162,6 +162,9 @@ public class EnrollmentTest {
 			assertEquals(prereq2311.get(i).getCredit(), credits2311[i], 0.1);
 			assertEquals(prereq2311.get(i).getName(), courseName2311[i]);
 		}
+		
+		
 	}
+	
 	
 }

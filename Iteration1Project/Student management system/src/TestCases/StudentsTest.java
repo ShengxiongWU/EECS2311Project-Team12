@@ -23,6 +23,7 @@ public class StudentsTest {
 		db = DB.getInstance();
 	}
 
+	
 	@Test
 	public void GetStudent() {
 		String[] StudName = {"bruce","wu","dave"};
@@ -44,7 +45,6 @@ public class StudentsTest {
 		assertTrue(Stud.get(1).getAccount().equals(StudAcc[1]));
 		assertTrue(Stud.get(2).getAccount().equals(StudAcc[2]));
 
-	
 	}
 
 }
