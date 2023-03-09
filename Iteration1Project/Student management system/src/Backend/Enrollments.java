@@ -141,5 +141,15 @@ public class Enrollments {
 	public ArrayList<Enrollment> getEnrollments() {
 		return enrollments;
 	}
+	public void dropCourse(String student_Id, String course_Id) {
+	    for (int i = 0; i < enrollments.size(); i++) {
+	        Enrollment enrollment = enrollments.get(i);
+	        if (enrollment.getStudent().getID().equals(student_Id) &&
+	            enrollment.getEnrolled().getCourse_id().equals(course_Id)) {
+	            enrollments.remove(i);
+	            break;
+	        }
+	    }
+	}
 	
 }
