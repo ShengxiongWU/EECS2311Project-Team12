@@ -9,18 +9,18 @@ import org.junit.*;
 import org.junit.Test;
 
 import Backend.*;
-
+import DB.DB;
 public class EnrollmentTest {
 
 	Enrollments enroll;
 	Courses courses;
-	
+	DB db;
 	@Before
 	public void init() {
 		enroll = Enrollments.getInstance();
 		courses = Courses.getInstance();
-		
-	}
+		db = DB.getInstance();
+		}
 	
 	@Test
 	public void getOverallGPATest() {
@@ -30,6 +30,8 @@ public class EnrollmentTest {
 		assertEquals(enroll.getOverAllGPA(studentIDs[0]), expected[0], 0.1);
 		assertEquals(enroll.getOverAllGPA(studentIDs[1]), expected[1], 0.1);
 		assertEquals(enroll.getOverAllGPA(studentIDs[2]), expected[2], 0.1);
+	
+		
 	}
 	
 	@Test
@@ -107,6 +109,10 @@ public class EnrollmentTest {
 		Double[] credits2011 = {4.0,6.0};
 		String[] courseName2011 = {"Math for Programming", "introduction to OOP programming"};
 		
+		//Prerequisite data 2311 (2 courses 2030, 1021)
+		String[] courseID2311 = {"EECS 2030", "EECS 1021",};
+		Double[] credits2311 = {4.0,3.0};
+		String[] courseName2311 = {"advanced computer programming", "introduction to OOP programming"};
 		
 		// Testing if course id are correct
 		assertTrue(enrollCourses.get(0).getCourse_id().equals(courseID[0]));
@@ -125,6 +131,7 @@ public class EnrollmentTest {
 		assertEquals(enrollCourses.get(1).getName(), courseName[1]);
 		assertEquals(enrollCourses.get(2).getName(), courseName[2]);
 		assertEquals(enrollCourses.get(3).getName(), courseName[3]);
+		
 		
 		
 		// Testing if prerequisite courses are correct
@@ -148,7 +155,13 @@ public class EnrollmentTest {
 			assertEquals(prereq2011.get(i).getCredit(), credits2011[i], 0.1);
 			assertEquals(prereq2011.get(i).getName(), courseName2011[i]);
 		}
-		
+	
+		ArrayList<Course> prereq2311 = enrollCourses.get(2).getPrerequisites();
+		for(int i = 0; i<prereq2311.size(); i++) {
+			assertTrue(prereq2311.get(i).getCourse_id().equals(courseID2311[i]));
+			assertEquals(prereq2311.get(i).getCredit(), credits2311[i], 0.1);
+			assertEquals(prereq2311.get(i).getName(), courseName2311[i]);
+		}
 	}
-
+	
 }

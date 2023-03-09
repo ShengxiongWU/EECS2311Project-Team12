@@ -1,6 +1,10 @@
 package Backend;
 import java.util.ArrayList;
 
+import DB.DB;
+
+
+
 public class Enrollment {
 	private Course enroll;
 	private Student student;
@@ -51,7 +55,6 @@ public class Enrollment {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
-	
 	
 }
 

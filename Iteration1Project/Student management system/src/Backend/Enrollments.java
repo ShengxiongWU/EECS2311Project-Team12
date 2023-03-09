@@ -2,6 +2,10 @@ package Backend;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import DB.DB;
+
+
+
 public class Enrollments {
 	private ArrayList<Enrollment> enrollments;
 	private static Enrollments enroll_list;
@@ -135,5 +139,16 @@ public class Enrollments {
 	public ArrayList<Enrollment> getEnrollments() {
 		return enrollments;
 	}
+	public void dropCourse(String studentId, String courseId) {
+	    for (int i = 0; i < enrollments.size(); i++) {
+	        Enrollment enrollment = enrollments.get(i);
+	        if (enrollment.getStudent().getID().equals(studentId) &&
+	            enrollment.getEnrolled().getCourse_id().equals(courseId)) {
+	            enrollments.remove(i);
+	            break;
+	        }
+	    }
+	}
+
 	
 }

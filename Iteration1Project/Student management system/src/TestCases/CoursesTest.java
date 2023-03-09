@@ -21,12 +21,12 @@ public class CoursesTest {
 	}
 	// this test is to check if the courses is initialized with setup course information or not
 	@Test
-	public void test() {
+	public void Test1() {
 		assertTrue(courses.getAll_Courses().size() != 0);
 	}
 
 	@Test
-	public void test2() {
+	public void Test2() {
 		Course c2 = new Course("EECS 1000","intro to programming", 3.0,new ArrayList<Course>());
 		ArrayList<Course> pre = new ArrayList<Course>();
 		pre.add(c2);

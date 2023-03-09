@@ -2,6 +2,9 @@ package Backend;
 import java.util.ArrayList;
 import java.util.List;
 
+import DB.DB;
+
+
 
 public class Courses {
 		private ArrayList<Course> all_Courses;

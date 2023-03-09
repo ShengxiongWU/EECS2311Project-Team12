@@ -8,16 +8,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Backend.*;
+import DB.DB;
 
 public class StudentsTest {
 
 	Students student;
 	ArrayList<Student> Stud;
+	DB db;
 
 	@Before
 	public void init() {
 		student = Students.getInstance();
 		Stud = student.getStudents();
+		db = DB.getInstance();
 	}
 
 	@Test
@@ -41,6 +44,7 @@ public class StudentsTest {
 		assertTrue(Stud.get(1).getAccount().equals(StudAcc[1]));
 		assertTrue(Stud.get(2).getAccount().equals(StudAcc[2]));
 
+	
 	}
 
 }

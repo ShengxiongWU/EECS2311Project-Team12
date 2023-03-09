@@ -1,4 +1,7 @@
 package Backend;
+
+import DB.DB;
+
 public class Student extends User{
 	private String Name;
 	private String Degree;
@@ -10,7 +13,7 @@ public class Student extends User{
 		this.Name = name;
 		this.Degree = degree;
 		this.Address = Address;
-		db.enroll(ID, name, Account, Password, Address, degree);
+		db.registerStudent(ID, name, Account, Password, Address, degree);
 	}
 	
 	public String getName() {

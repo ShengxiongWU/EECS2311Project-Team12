@@ -14,15 +14,11 @@ public class DB {
 	
 	private DB(){
 		try {
-<<<<<<< HEAD
-			this.url = "jdbc:mysql://localhost:3306";
-			this.user = "root";
-			this.password = "root1234";
-=======
+
 		   String url = "jdbc:mysql://127.0.0.1:3306";
 		   String user = "root";
-		    String password = "123456";
->>>>>>> main
+		    String password = "Vir@l1055";
+
 			conn = DriverManager.getConnection(url,user,password);
 			Statement statement = conn.createStatement();
 			String checkDB = "select Count(*), schema_name from information_schema.schemata where schema_name='db';";
@@ -80,7 +76,7 @@ public class DB {
 				System.out.println("course enrollment table created successfully...");
 				statement.executeUpdate(create_adminTable);
 				System.out.println("admin table created successfully...");
-//				sampleDB();
+//			sampleDB();
 			}else {
 				statement.executeUpdate(use_database);
 				System.out.println("Database used successfully...");
