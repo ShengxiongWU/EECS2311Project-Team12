@@ -17,7 +17,7 @@ public class DB {
 
 		   String url = "jdbc:mysql://127.0.0.1:3306";
 		   String user = "root";
-		    String password = "!!RootEyes!!";
+		    String password = "Vir@l1055";
 
 			conn = DriverManager.getConnection(url,user,password);
 			Statement statement = conn.createStatement();
@@ -152,13 +152,21 @@ public class DB {
 		return false;	
 	 }
 	
-	public boolean addEnrollment(String studentId, String name, String courseId, String term, String status, String grade) {
-		String query = String.format("INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade) "
-				+ "VALUES(%s,%s,%s,%s,%s,%s);",courseId, name, studentId,status, term, grade);
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+	public boolean addEnrollment(String courseId, String name, String studentId , String status, String term, String grade) {
 
-			int rowAffected = pstmt.executeUpdate();
+		
+		try {
+			 String sql1 = "INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade)" + "VALUES(?,?,?,?,?,?)";
+			PreparedStatement pstmt1 = conn.prepareStatement(sql1,Statement.RETURN_GENERATED_KEYS);
+			pstmt1.setString(1, courseId);
+			pstmt1.setString(2, name);
+			pstmt1.setString(3, studentId);
+			pstmt1.setString(4, status);
+			pstmt1.setString(5, term);
+			pstmt1.setString(6, grade);
+		
+
+			int rowAffected = pstmt1.executeUpdate();
 			if(rowAffected == 1)
 			{
 				return true;
@@ -171,9 +179,10 @@ public class DB {
 		return false;
 
 	}
+
 	public boolean dropEnrollment(String studentId, String courseId) {
-		String query = String.format("DELETE FROM course_enrollment WHERE student_id=$s and course_id=%s;",studentId, courseId);
 		try {
+			String query = String.format("DELETE FROM course_enrollment WHERE student_id=$s and course_id=%s;",studentId, courseId);
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
 			int rowAffected = pstmt.executeUpdate();
