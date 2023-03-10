@@ -13,17 +13,12 @@ public class DB {
 	private static DB db;
 	
 	private DB(){
-		try {
 
-		   String url = "jdbc:mysql://127.0.0.1:3306";
-		   String user = "root";
-		    String password = "Vir@l1055";
+			this.url = "jdbc:mysql://localhost:3306";
+			this.user = "root";
+			this.password = "root1234";
 
 			conn = DriverManager.getConnection(url,user,password);
-			Statement statement = conn.createStatement();
-			String checkDB = "select Count(*), schema_name from information_schema.schemata where schema_name='db';";
-			String create_database = "create database db;";
-			String use_database = "use db;";
 
 			String create_studentTable = "create table students" +
 					"(id varchar(25) not NULL unique, " +
