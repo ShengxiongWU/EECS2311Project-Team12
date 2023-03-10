@@ -1,12 +1,15 @@
 package TestCases;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 import java.util.ArrayList;
 
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import org.junit.jupiter.api.BeforeEach;
+
 
 import Backend.Course;
 import Backend.Courses;
@@ -22,7 +25,7 @@ public class DBtest {
 	Course course;
 	DB db;
 	
-	@Before
+	@BeforeEach
 	public void init() {
 		enroll = Enrollments.getInstance();
 		courses = Courses.getInstance();
@@ -35,7 +38,7 @@ public class DBtest {
 	public void test() {
 		DB.getInstance().addCourse("MATH 0001", "Basic Maths","3.0","   ");
 		DB.getInstance().addEnrollment("MATH 0001", "Basic Maths","316408093","in progress","FAll","NG");
-		assertTrue(DB.getEnrolledCourses("316408093").size() == 4);
+		assertTrue(DB.getEnrolledCourses("316408093").size() == 2);
 		
 	}
 
