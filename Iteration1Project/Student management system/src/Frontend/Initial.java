@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import Backend.Admin;
 import Backend.Student;
 import Backend.User;
+import DB.DB;
 
 
 
@@ -35,6 +36,7 @@ public class Initial {
 	private JFrame frame = null;
 	private Container container = null;
 	private static Initial instance;
+	private static DB db;
 	
 	public static Initial getInstance() {
 		if(instance == null) {
@@ -44,6 +46,7 @@ public class Initial {
 	}
 	
 	private Initial() {
+		db=DB.getInstance();
 		frame = new JFrame("Initial");
 		InitialFrame();
 		StubDB = new ArrayList<User>();
@@ -178,7 +181,7 @@ public class Initial {
 			submit.addActionListener(new AccessListener(){
 				@Override
 				public void actionPerformed(ActionEvent e){
-					if(AccessChecker()) {
+					if(db.login(UsernameBox.getText(),new String(PasswordBox.getPassword()))) {
 						Error error = new Error(frame,"success");
 						error.setVisible(true);
 						lg.setVisible(false);
@@ -202,19 +205,7 @@ public class Initial {
 		
 		
 
-		private boolean AccessChecker() {
 
-
-			
-			for(User u: StubDB) {
-				if(u.getAccount().equals(UsernameBox.getText())&&u.getPassword().equals(new String(PasswordBox.getPassword()))) {
-					return true;
-				}
-			}
-			return false;
-			
-		}
-		
 		private class AccessListener implements ActionListener{
 			
 			public void actionPerformed(ActionEvent e) {
@@ -413,7 +404,7 @@ public class Initial {
 				submit.addActionListener(new AccessListener(){
 					@Override
 					public void actionPerformed(ActionEvent e){
-						StubDB.add(new Student(NameBox.getText(),DegreeBox.getText(),AddressBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText()));
+						Student s = new Student(NameBox.getText(),DegreeBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText(),AddressBox.getText());				
 					
 //					System.out.println(UsernameBox.getText()+" "+PasswordBox.getText());
 					}
@@ -441,7 +432,6 @@ public class Initial {
 			private class AccessListener implements ActionListener{
 				
 				public void actionPerformed(ActionEvent e) {
-					Student s = new Student(NameBox.getText(),DegreeBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText(),AddressBox.getText());
 				}
 				
 				
@@ -570,7 +560,7 @@ public class Initial {
 				submit.addActionListener(new AccessListener(){
 					@Override
 					public void actionPerformed(ActionEvent e){
-						StubDB.add(new Admin(FacultyBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText()));
+						Admin a = new Admin(FacultyBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText());
 
 					}
 				});
@@ -596,7 +586,6 @@ public class Initial {
 			private class AccessListener implements ActionListener{
 				
 				public void actionPerformed(ActionEvent e) {
-					Admin a = new Admin(FacultyBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText());
 				}
 				
 				
