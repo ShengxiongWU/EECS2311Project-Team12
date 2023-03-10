@@ -15,7 +15,7 @@ public class DB {
 	private DB(){
 		try {
 
-		   String url = "jdbc:mysql://localhost:3306/db";
+		   String url = "jdbc:mysql://localhost:3306/";
 		   String user = "username";
 		    String password = "password";
 
