@@ -16,8 +16,8 @@ public class DB {
 		try {
 
 		   String url = "jdbc:mysql://localhost:3306/db";
-		   String user = "root";
-		    String password = "Vir@l1055";
+		   String user = "username";
+		    String password = "password";
 
 			conn = DriverManager.getConnection(url,user,password);
 			Statement statement = conn.createStatement();
