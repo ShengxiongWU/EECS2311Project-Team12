@@ -153,7 +153,7 @@ public class DB {
 	
 	public boolean addEnrollment(String courseId, String name, String studentId , String status, String term, String grade) {
 		try {
-			 String sql1 = "INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade)" + "VALUES(?,?,?,?,?,?)";
+			 String sql1 = "INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade)" + "VALUES(?,?,?,?,?,?);";
 			 
 			PreparedStatement pstmt1 = conn.prepareStatement(sql1,Statement.RETURN_GENERATED_KEYS);
 			pstmt1.setString(1, courseId);

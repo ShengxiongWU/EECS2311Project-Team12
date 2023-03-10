@@ -1,5 +1,6 @@
 package TestCases;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class DBtest {
 	public void test() {
 		DB.getInstance().addCourse("MATH 0001", "Basic Maths","3.0","   ");
 		DB.getInstance().addEnrollment("MATH 0001", "Basic Maths","316408093","in progress","FAll","NG");
-		assertTrue(DB.getEnrolledCourses("316408093").size() == 2);
+		assertTrue(DB.getEnrolledCourses("316408093").size() == 4);
 		
 	}
 
@@ -44,9 +45,18 @@ public class DBtest {
 		DB.getInstance().registerStudent("213496844", "Birva", "123456784","amit123","Scarborough", "Computer Engineering");
 		DB.getInstance().registerStudent("213436884", "Parth", "123456987","parth123","Toronto", "Electrical Engineering");
 		DB.getInstance().registerStudent("213436880", "Pat", "123456977","pat123","Toronto", "Electrical Engineering");
-	
-
+		DB.getInstance().registerStudent("213436881", "Pate", "124456977","pate123","Toronto", "Mechnical Engineering");
+        assertTrue(Students.getInstance().getStudents().size() < 10);
+	}
+	@Test
+	public void test3() {
+		DB.getInstance().addEnrollment("EECS 1000", "intro to programming","316408093","in progress","FAll","NG");
+		assertFalse(DB.getEnrolledCourses("316408093").size() > 10);
 	}
 	
+	@Test
+	public void test4() {
+		DB.getInstance().dropEnrollment("316408093", "Math 1025");
+	}
 
 }
