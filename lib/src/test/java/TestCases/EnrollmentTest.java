@@ -168,6 +168,11 @@ public class EnrollmentTest {
 		
 		
 	}
-	
+	@Test
+	public void test() {
+		
+		db.addCourse("MATH0 0010", "Basic MAths 2", "3.0", " ");
+		db.addEnrollment("MATH 00010", "Basic Maths 2","316408093","in progress","FAll","NG");
+	}
 	
 }

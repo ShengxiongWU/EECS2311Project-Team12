@@ -15,7 +15,7 @@ public class DB {
 	private DB(){
 		try {
 
-		   String url = "jdbc:mysql://127.0.0.1:3306";
+		   String url = "jdbc:mysql://localhost:3306/db";
 		   String user = "root";
 		    String password = "Vir@l1055";
 
@@ -130,8 +130,7 @@ public class DB {
 	 
 	public boolean addCourse(String id, String name, String credit, String prequisites) {
 		try {
-			String sql = "INSERT INTO courses(id,name,credit,prequisites) "
-					+ "VALUES(?,?,?,?)";
+			String sql = "INSERT INTO courses(id,name,credit,prequisites)" + "VALUES(?,?,?,?)";
 
 			PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, id);
@@ -153,10 +152,9 @@ public class DB {
 	 }
 	
 	public boolean addEnrollment(String courseId, String name, String studentId , String status, String term, String grade) {
-
-		
 		try {
 			 String sql1 = "INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade)" + "VALUES(?,?,?,?,?,?)";
+			 
 			PreparedStatement pstmt1 = conn.prepareStatement(sql1,Statement.RETURN_GENERATED_KEYS);
 			pstmt1.setString(1, courseId);
 			pstmt1.setString(2, name);
