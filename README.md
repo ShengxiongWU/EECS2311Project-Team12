@@ -1,5 +1,5 @@
 # EECS2311Project-Team12
-## Planning document
+## Most Updated Planning document
 ### iteration 1
 #### Check Course List
 * Course associated information including course number, course title, course grades and term taken. 
