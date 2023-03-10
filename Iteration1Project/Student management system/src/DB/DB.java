@@ -15,8 +15,8 @@ public class DB {
 	private DB(){
 
 			this.url = "jdbc:mysql://localhost:3306";
-			this.user = "root";
-			this.password = "root1234";
+			this.user = "username";
+			this.password = "password";
 
 			conn = DriverManager.getConnection(url,user,password);
 
