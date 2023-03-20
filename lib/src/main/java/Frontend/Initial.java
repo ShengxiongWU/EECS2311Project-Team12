@@ -404,7 +404,7 @@ public class Initial {
 				submit.addActionListener(new AccessListener(){
 					@Override
 					public void actionPerformed(ActionEvent e){
-						Student s = new Student(NameBox.getText(),DegreeBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText(),AddressBox.getText());				
+						Student s = new Student(NameBox.getText(),DegreeBox.getText(),AddressBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText());				
 					
 //					System.out.println(UsernameBox.getText()+" "+PasswordBox.getText());
 					}
