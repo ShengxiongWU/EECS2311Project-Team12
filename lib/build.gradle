@@ -36,7 +36,10 @@ test {
 jar {
 	manifest {
 		attributes 'Main-class': 'Frontend.Client'
+		//attributes 'Main-class': 'Frontend.MainUI'
+		
 	}
 }
 
 mainClassName = 'Frontend.Client'
+//mainClassName = 'Frontend.MainUI'

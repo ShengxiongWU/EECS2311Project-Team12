@@ -12,6 +12,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import DB.DB;
 
@@ -39,7 +40,7 @@ public class MainUI extends JDialog{
 		InitialFrame();
 
         GridBagLayout gridBag = new GridBagLayout();   
-		container.setLayout(new GridLayout(2,1));
+		container.setLayout(new GridLayout(2,2));
 		JPanel p1 = new JPanel(gridBag);
 		JPanel p2 = new JPanel(new FlowLayout());
 		CreateAndSetComponent(p1,p2);
@@ -51,7 +52,12 @@ public class MainUI extends JDialog{
 	private void CreateAndSetComponent(JPanel p1, JPanel p2) {
 
 		
-		JLabel CourseCode = new JLabel("Course Code:");
+		JLabel CourseCode1 = new JLabel("Course Code:");
+		JLabel CourseCode2 = new JLabel("Course Code:");
+		JTextField CourseCodeText1 = new JTextField();
+		JTextField CourseCodeText2 = new JTextField();
+		CourseCodeText1.setColumns(10);
+		CourseCodeText2.setColumns(10);
 		JButton AddCourse = new JButton("Add Course");
 		
 		AddCourse.addActionListener(new AccessListener(){
@@ -69,10 +75,14 @@ public class MainUI extends JDialog{
 				
 			}
 		});
-		p1.add(CourseCode);
+		p1.add(CourseCode1);
+		p1.add(CourseCodeText1);
 		p1.add(AddCourse); 
-		p2.add(CourseCode);
+
+		p2.add(CourseCode2);
+		p2.add(CourseCodeText2);
 		p2.add(DropCourse);
+
 	}
 	
 
@@ -91,6 +101,9 @@ public class MainUI extends JDialog{
 		
 		
 		
+	}
+	public static void main(String[] args) {
+		MainUI.getInstance();
 	}
 	
 
