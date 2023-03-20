@@ -36,20 +36,22 @@ public class MainUI extends JDialog{
 	
 	private MainUI() {
 		db=DB.getInstance();
-		frame = new JFrame("Initial");
+		frame = new JFrame("MainUI");
 		InitialFrame();
 
         GridBagLayout gridBag = new GridBagLayout();   
-		container.setLayout(new GridLayout(2,2));
+		container.setLayout(new GridLayout(3,3));
 		JPanel p1 = new JPanel(gridBag);
 		JPanel p2 = new JPanel(new FlowLayout());
-		CreateAndSetComponent(p1,p2);
+		JPanel p3 = new JPanel(new FlowLayout());
+		CreateAndSetComponent(p1,p2,p3);
 		container.add(p1);
 		container.add(p2);
+		container.add(p3);
 		frame.setVisible(true);
 	}
 	
-	private void CreateAndSetComponent(JPanel p1, JPanel p2) {
+	private void CreateAndSetComponent(JPanel p1, JPanel p2, JPanel p3) {
 
 		
 		JLabel CourseCode1 = new JLabel("Course Code:");
@@ -59,6 +61,7 @@ public class MainUI extends JDialog{
 		CourseCodeText1.setColumns(10);
 		CourseCodeText2.setColumns(10);
 		JButton AddCourse = new JButton("Add Course");
+		JButton CheckCourse = new JButton("Check Course");
 		
 		AddCourse.addActionListener(new AccessListener(){
 			@Override
@@ -82,6 +85,8 @@ public class MainUI extends JDialog{
 		p2.add(CourseCode2);
 		p2.add(CourseCodeText2);
 		p2.add(DropCourse);
+		
+		p3.add(CheckCourse);
 
 	}
 	
