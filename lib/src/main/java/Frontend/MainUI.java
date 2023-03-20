@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import DB.DB;
@@ -50,28 +51,28 @@ public class MainUI extends JDialog{
 	private void CreateAndSetComponent(JPanel p1, JPanel p2) {
 
 		
+		JLabel CourseCode = new JLabel("Course Code:");
+		JButton AddCourse = new JButton("Add Course");
 		
-		JButton register = new JButton("Register");
-		
-		register.addActionListener(new AccessListener(){
+		AddCourse.addActionListener(new AccessListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
 				
 			}
 		});
 		
-		JButton login = new JButton("Login");
+		JButton DropCourse = new JButton("Drop Course");
 		
-		login.addActionListener(new AccessListener(){
+		DropCourse.addActionListener(new AccessListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
 				
 			}
 		});
-		
-		//p1.add(login); 
-
-		//p2.add(register);
+		p1.add(CourseCode);
+		p1.add(AddCourse); 
+		p2.add(CourseCode);
+		p2.add(DropCourse);
 	}
 	
 
