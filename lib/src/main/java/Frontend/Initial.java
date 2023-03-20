@@ -182,7 +182,7 @@ public class Initial {
 				@Override
 				public void actionPerformed(ActionEvent e){
 					if(db.login(UsernameBox.getText(),new String(PasswordBox.getPassword()))) {
-						
+						frame.setVisible(false);
 						lg.setVisible(false);
 						MainUI.getInstance();
 					}
@@ -405,7 +405,14 @@ public class Initial {
 					@Override
 					public void actionPerformed(ActionEvent e){
 						Student s = new Student(NameBox.getText(),DegreeBox.getText(),AddressBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText());				
-					
+					if(!s.getStatus()) {
+						Error error = new Error(frame,"fail");
+						error.setVisible(true);
+						System.exit(0);
+					}
+					Error error = new Error(frame,"success");
+					error.setVisible(true);
+					sr.setVisible(false);
 //					System.out.println(UsernameBox.getText()+" "+PasswordBox.getText());
 					}
 				});
