@@ -182,9 +182,9 @@ public class Initial {
 				@Override
 				public void actionPerformed(ActionEvent e){
 					if(db.login(UsernameBox.getText(),new String(PasswordBox.getPassword()))) {
-						Error error = new Error(frame,"success");
-						error.setVisible(true);
+						
 						lg.setVisible(false);
+						MainUI.getInstance();
 					}
 					else {
 						Error error = new Error(frame,"fail");
