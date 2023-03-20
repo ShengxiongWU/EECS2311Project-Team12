@@ -42,7 +42,7 @@ public class MainUI extends JDialog{
         GridBagLayout gridBag = new GridBagLayout();   
 		container.setLayout(new GridLayout(3,3));
 		JPanel p1 = new JPanel(gridBag);
-		JPanel p2 = new JPanel(new FlowLayout());
+		JPanel p2 = new JPanel(gridBag);
 		JPanel p3 = new JPanel(new FlowLayout());
 		CreateAndSetComponent(p1,p2,p3);
 		container.add(p1);
@@ -93,7 +93,7 @@ public class MainUI extends JDialog{
 
 	
 	private void InitialFrame() {
-		frame.setSize(1000, 800);
+		frame.setSize(500, 300);
 		frame.setLocationRelativeTo(null);
 		container = frame.getContentPane();
 	}
