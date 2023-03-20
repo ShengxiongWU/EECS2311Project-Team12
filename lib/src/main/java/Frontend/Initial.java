@@ -32,7 +32,7 @@ import DB.DB;
 
 public class Initial {
 	
-	private static ArrayList<User> StubDB;
+
 	private JFrame frame = null;
 	private Container container = null;
 	private static Initial instance;
@@ -49,7 +49,7 @@ public class Initial {
 		db=DB.getInstance();
 		frame = new JFrame("Initial");
 		InitialFrame();
-		StubDB = new ArrayList<User>();
+
         GridBagLayout gridBag = new GridBagLayout();   
 		container.setLayout(new GridLayout(2,1));
 		JPanel p1 = new JPanel(gridBag);
