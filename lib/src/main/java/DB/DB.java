@@ -180,7 +180,7 @@ public class DB {
 
 	public boolean dropEnrollment(String studentId, String courseId) {
 		try {
-			String query = String.format("DELETE FROM course_enrollment WHERE student_id=$s and course_id=%s;",studentId, courseId);
+			String query = String.format("DELETE FROM course_enrollment WHERE student_id=%s and course_id=%s;",studentId, courseId);
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
 			int rowAffected = pstmt.executeUpdate();
