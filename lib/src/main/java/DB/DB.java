@@ -36,14 +36,14 @@ public class DB {
 
 			String create_courseTable = "create table courses" +
 					"(id varchar(25) not NULL, " +
-					" name varchar(50), " +
+					" name varchar(100), " +
 					" credit VARCHAR(20), " +
 					" prequisites VARCHAR(255), " +
 					" PRIMARY KEY ( id ));";
 
 			String create_courseEnrolmentTable = "create table course_enrollment" +
 					"(course_id varchar(25) not null," +
-					" name VARCHAR(50), " +
+					" name VARCHAR(100), " +
 					" student_id VARCHAR(20) not null," +
 					" status VARCHAR(20) not null," +
 					" term_taken VARCHAR(10) not null," +
