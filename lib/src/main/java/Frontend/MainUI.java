@@ -13,6 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import DB.DB;
@@ -60,7 +61,7 @@ public class MainUI extends JDialog{
 			setLocationRelativeTo(null);
 			Container c = getContentPane();
 			c.setLayout(new FlowLayout());
-			JLabel error = new JLabel(m);
+			JTextArea error = new JTextArea(m);
 			c.add(error);
 		}
 
@@ -87,7 +88,8 @@ public class MainUI extends JDialog{
 				+ "\n" + "account: " + result.get(2) + "\n" + "password: "
 				+ result.get(3) + "\n" + "address: " + result.get(4) + "\n"
 				+ "degree: " + result.get(5);
-				new Result(frame, s);
+				Result s2 = new Result(frame, s);
+				s2.setVisible(true);
 			}
 		});
 		
@@ -137,9 +139,7 @@ public class MainUI extends JDialog{
 		
 		
 	}
-	public static void main(String[] args) {
-		MainUI.getInstance();
-	}
+
 	
 
 }
