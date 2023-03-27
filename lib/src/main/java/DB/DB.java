@@ -127,7 +127,7 @@ public class DB {
 //		}
 //	}
 
-	 
+	//add one course to the course table in other words creating one course in the course system
 	public boolean addCourse(String id, String name, String credit, String prequisites) {
 		try {
 			String sql = "INSERT INTO courses(id,name,credit,prequisites)" + "VALUES(?,?,?,?)";
@@ -151,6 +151,7 @@ public class DB {
 		return false;	
 	 }
 	
+	//add course for one student
 	public boolean addEnrollment(String courseId, String name, String studentId , String status, String term, String grade) {
 		try {
 			 String sql1 = "INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade)" + "VALUES(?,?,?,?,?,?);";
@@ -178,6 +179,7 @@ public class DB {
 
 	}
 
+	//drop one record of enrollment, by using this function, a student can drop his course or admin can drop one student's course
 	public boolean dropEnrollment(String studentId, String courseId) {
 		try {
 			String query = String.format("DELETE FROM course_enrollment WHERE student_id=%s and course_id=%s;",studentId, courseId);
@@ -224,7 +226,7 @@ public class DB {
 		return false;	
 	}
 
-
+	//student login
 	public boolean login(String account, String password) {
 		try {
 			String sql = "select * from students where account = ? and password = ?";
@@ -244,6 +246,53 @@ public class DB {
 
 	}
 
+	// add an admin to admin table in other words register admin account
+		public boolean registerAdmin(String faculty,String ID, String Account, String Password, String address) {
+			try {
+				String sql = "INSERT INTO admins(id,account,password,address,faculty) "
+						+ "VALUES(?,?,?,?,?)";
+
+				PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+
+				pstmt.setString(1, ID);
+				pstmt.setString(2, Account);
+				pstmt.setString(3, Password);
+				pstmt.setString(4, address);
+				pstmt.setString(5, faculty);
+
+				int rowAffected = pstmt.executeUpdate();
+				if(rowAffected == 1)
+				{
+					return true;
+				}
+
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			return false;	
+		}
+	
+		//admin login
+		public boolean adminLogin(String account, String password) {
+			try {
+				String sql = "select * from admins where account = ? and password = ?";
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, account);
+				pstmt.setString(2, password);
+
+				ResultSet rs = pstmt.executeQuery();
+
+				if(rs.next()) return true;
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			return false;
+
+		}
+	//by inputting the course ID, return a long String of all courses prerequisite
 	public String course_prerequisite(String course_id){
 		try {
 			String sql = "select prequisites from courses where id = " + "'" + course_id + "'";
@@ -262,7 +311,8 @@ public class DB {
 
 		return null;
 	}
-
+	
+	//get all information from one stduent by inputting the stduent ID
 	public static ArrayList<String> student_info(String student_id){
 		ArrayList<String> result = new ArrayList<String>();
 		try {
@@ -293,7 +343,8 @@ public class DB {
 
 		return result;
 	}
-
+	
+	//return the enrolled course of one student using the student ID
 	public static ArrayList<ArrayList<String>> getEnrolledCourses(String student_id){
 		ArrayList<ArrayList<String>> records = new ArrayList<ArrayList<String>>();
 		try {
