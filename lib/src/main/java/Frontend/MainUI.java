@@ -83,7 +83,9 @@ public class MainUI extends JDialog{
 		GetPersonalInfo.addActionListener(new AccessListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				ArrayList<String> result = DB.student_info(id);
+				String account = "";
+				String password = "";
+				ArrayList<String> result = DB.student_info(account, password);
 				String s = "id: "+result.get(0)+"\n"+"name: "+result.get(1)
 				+ "\n" + "account: " + result.get(2) + "\n" + "password: "
 				+ result.get(3) + "\n" + "address: " + result.get(4) + "\n"
