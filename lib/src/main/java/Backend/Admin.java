@@ -1,10 +1,13 @@
 package Backend;
 
+import DB.DB;
 
 public class Admin extends User{
 
 	private String Faculty;
 	private String address;
+	private DB db = DB.getInstance();
+	private boolean status;
 	
 	/*
      * Admin Constructor 
@@ -13,6 +16,7 @@ public class Admin extends User{
 		super(ID,Account,Password);
 		this.address = address;
 		Faculty = faculty;
+		status = db.registerAdmin(faculty,ID, Account, Password, address);
 	}
     /*
      * getter method for Faculty
@@ -26,6 +30,9 @@ public class Admin extends User{
 	public void setFaculty(String faculty) {
 		Faculty = faculty;
 	}
-	
+	//checking if an admin is registered in the database or not
+		public boolean getStatus() {
+			return status;
+		}
 	
 }
