@@ -567,7 +567,7 @@ public class Initial {
 				submit.addActionListener(new AccessListener(){
 					@Override
 					public void actionPerformed(ActionEvent e){
-						Admin a = new Admin(FacultyBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText());
+						Admin a = new Admin(FacultyBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText(),Address.getText());
 
 					}
 				});
