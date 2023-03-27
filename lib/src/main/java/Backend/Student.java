@@ -8,13 +8,14 @@ public class Student extends User{
 	private String Address;
     private DB db = DB.getInstance();
     private boolean status;
+    private static Student student = null;
     
 	public Student(String name, String degree,String Address, String ID, String Account, String Password) {
 		super(ID,Account,Password);
 		this.Name = name;
 		this.Degree = degree;
 		this.Address = Address;
-		status = db.registerStudent(ID, name, Account, Password, Address, degree);
+//		status = db.registerStudent(ID, name, Account, Password, Address, degree);
 	}
 	
 	public String getName() {
@@ -44,6 +45,9 @@ public class Student extends User{
 	//checking if a stduent is registered in the database or not
 	public boolean getStatus() {
 		return status;
+	}
+	public void registerStudent() {
+		status = db.registerStudent(ID, Name, Account, Password, Address, Degree);
 	}
 	
 }

@@ -22,7 +22,7 @@ public class Enrollment {
 		String course_id = enroll.getCourse_id();
 		String course_name = enroll.getName();
 		String student_id = student.getID();
-		db.addEnrollment(student_id, course_name, course_id, term_taken, status, grade);
+//		db.addEnrollment(student_id, course_name, course_id, term_taken, status, grade);
 	}
 	
 	public Course getEnrolled() {

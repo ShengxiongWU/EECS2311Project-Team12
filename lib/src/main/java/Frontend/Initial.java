@@ -182,9 +182,10 @@ public class Initial {
 				@Override
 				public void actionPerformed(ActionEvent e){
 					if(db.login(UsernameBox.getText(),new String(PasswordBox.getPassword()))) {
+						ArrayList<String> info = db.student_info(UsernameBox.getText());
 						frame.setVisible(false);
 						lg.setVisible(false);
-						MainUI.getInstance();
+						MainUI.getInstance(info);
 					}
 					else {
 						Error error = new Error(frame,"fail");
@@ -404,7 +405,8 @@ public class Initial {
 				submit.addActionListener(new AccessListener(){
 					@Override
 					public void actionPerformed(ActionEvent e){
-						Student s = new Student(NameBox.getText(),DegreeBox.getText(),AddressBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText());				
+						Student s = new Student(NameBox.getText(),DegreeBox.getText(),AddressBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText());
+						s.registerStudent();
 					if(!s.getStatus()) {
 						Error error = new Error(frame,"fail");
 						error.setVisible(true);

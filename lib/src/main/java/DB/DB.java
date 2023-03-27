@@ -15,8 +15,8 @@ public class DB {
 	private DB(){
 		try {
 
-		   String url = "jdbc:mysql://localhost:3306/";
-		   String user = "root";
+			String url = "jdbc:mysql://localhost:3306/";
+		   	String user = "root";
 		    String password = "123456";
 
 			conn = DriverManager.getConnection(url,user,password);
@@ -77,6 +77,7 @@ public class DB {
 				statement.executeUpdate(create_adminTable);
 				System.out.println("admin table created successfully...");
 //			sampleDB();
+				courseTableSetup();
 			}else {
 				statement.executeUpdate(use_database);
 				System.out.println("Database used successfully...");
@@ -97,6 +98,18 @@ public class DB {
 		  
 		return db;
 	   }
+		private void courseTableSetup() {
+			String[][] courses = {
+					{"EECS2311", "Software Development Project","3.00","EECS1030,EECS2030"},
+					{"EECS2030", "Advanced Object Oriented Programming","3.00","EECS1021"},
+					{"EECS1021", "Object Oriented Programming from Sensors to Actuators","3.00","EECS1011"},
+					{"EECS1011", "Computational Thinking through Mechatronics","3.00",""}
+			};
+			for(int i = 0; i<courses.length; i++) {
+				System.out.println("Added Course *" + courses[i][0]+"*: "+ addCourse(courses[i][0], courses[i][1], courses[i][2], courses[i][3]));
+			}
+
+		}
 
 //	public void sampleDB() {
 //		try {
@@ -151,10 +164,13 @@ public class DB {
 		return false;	
 	 }
 	
-	public boolean addEnrollment(String courseId, String name, String studentId , String status, String term, String grade) {
+	public boolean addEnrollment(String courseId, String name, String studentId) {
+		String grade = "NA";
+		String status="InProgress";
+		String term ="Fall";
 		try {
-			 String sql1 = "INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade)" + "VALUES(?,?,?,?,?,?);";
-			 
+			String sql1 = "INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade)" + "VALUES(?,?,?,?,?,?);";
+			
 			PreparedStatement pstmt1 = conn.prepareStatement(sql1,Statement.RETURN_GENERATED_KEYS);
 			pstmt1.setString(1, courseId);
 			pstmt1.setString(2, name);
@@ -198,6 +214,7 @@ public class DB {
 	}
 	// add a student to student table
 	public boolean registerStudent(String id, String name,String account, String password, String address, String degree) {
+		
 		try {
 			String sql = "INSERT INTO students(id,name,account,password,address,degree) "
 					+ "VALUES(?,?,?,?,?,?)";
@@ -263,10 +280,10 @@ public class DB {
 		return null;
 	}
 
-	public static ArrayList<String> student_info(String student_id){
+	public ArrayList<String> student_info(String student_id){
 		ArrayList<String> result = new ArrayList<String>();
 		try {
-			String sql = "select * from students where id = ?";
+			String sql = "select * from students where account = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, student_id);
@@ -294,7 +311,7 @@ public class DB {
 		return result;
 	}
 
-	public static ArrayList<ArrayList<String>> getEnrolledCourses(String student_id){
+	public ArrayList<ArrayList<String>> getEnrolledCourses(String student_id){
 		ArrayList<ArrayList<String>> records = new ArrayList<ArrayList<String>>();
 		try {
 			String sql = "select * from course_enrollment where student_id = ?";

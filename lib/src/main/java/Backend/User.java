@@ -2,9 +2,9 @@ package Backend;
 
 public class User {
 	
-	private String ID;
-	private String Account;
-	private String Password;
+	protected String ID;
+	protected String Account;
+	protected String Password;
 	
 	
 	public User(String ID, String Account, String Password) {
