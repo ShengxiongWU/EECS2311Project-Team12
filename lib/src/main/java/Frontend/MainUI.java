@@ -27,16 +27,18 @@ public class MainUI extends JDialog{
 	private JFrame frame = null;
 	private Container container = null;
 	private static DB db;
-	private static String id;
+	private static String account;
+	private static String password;
 
 	
-	public static MainUI getInstance(String id) {
+	public static MainUI getInstance(String account, String password) {
 
-		return new MainUI(id);
+		return new MainUI(account,password);
 	}
 	
-	private MainUI(String id) {
-		this.id = id;
+	private MainUI(String account, String password) {
+		this.account = account;
+		this.password = password;
 		db=DB.getInstance();
 		frame = new JFrame("MainUI");
 		InitialFrame();
@@ -83,8 +85,6 @@ public class MainUI extends JDialog{
 		GetPersonalInfo.addActionListener(new AccessListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				String account = "";
-				String password = "";
 				ArrayList<String> result = DB.student_info(account, password);
 				String s = "id: "+result.get(0)+"\n"+"name: "+result.get(1)
 				+ "\n" + "account: " + result.get(2) + "\n" + "password: "

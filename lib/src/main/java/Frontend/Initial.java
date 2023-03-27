@@ -186,7 +186,7 @@ public class Initial {
 						if(db.login(UsernameBox.getText(),new String(PasswordBox.getPassword()))) {
 							frame.setVisible(false);
 							lg.setVisible(false);
-							MainUI.getInstance(UsernameBox.getText());
+							MainUI.getInstance(UsernameBox.getText(),new String(PasswordBox.getPassword()));
 						}else {
 							Error error = new Error(frame,"fail");
 							error.setVisible(true);
