@@ -312,27 +312,28 @@ public class DB {
 		return null;
 	}
 	
-	//get all information from one stduent by inputting the stduent ID
-	public static ArrayList<String> student_info(String student_id){
+	//get all information from one stduent by inputting the stduent account and password
+	public static ArrayList<String> student_info(String account, String password){
 		ArrayList<String> result = new ArrayList<String>();
 		try {
-			String sql = "select * from students where id = ?";
+			String sql = "select * from students where account = ? and password = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, student_id);
+			pstmt.setString(1, account);
+			pstmt.setString(2, password);
 			ResultSet rs = pstmt.executeQuery();
 
 			if(rs.next()) {
 				String id = rs.getString("id");
 				String name = rs.getString("name");
-				String account = rs.getString("account");
-				String password = rs.getString("password");
+				String account1 = rs.getString("account");
+				String password1 = rs.getString("password");
 				String address = rs.getString("address");
 				String degree = rs.getString("degree");
 				result.add(id);
 				result.add(name);
-				result.add(account);
-				result.add(password);
+				result.add(account1);
+				result.add(password1);
 				result.add(address);
 				result.add(degree);
 			}
