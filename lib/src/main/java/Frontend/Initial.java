@@ -181,18 +181,36 @@ public class Initial {
 			submit.addActionListener(new AccessListener(){
 				@Override
 				public void actionPerformed(ActionEvent e){
-					if(db.login(UsernameBox.getText(),new String(PasswordBox.getPassword()))) {
-						frame.setVisible(false);
-						lg.setVisible(false);
-						MainUI.getInstance();
-					}
-					else {
-						Error error = new Error(frame,"fail");
-						error.setVisible(true);
-						System.exit(0);
+					if(UsernameBox.getText().length()==9)
+					{
+						if(db.login(UsernameBox.getText(),new String(PasswordBox.getPassword()))) {
+							frame.setVisible(false);
+							lg.setVisible(false);
+							MainUI.getInstance(UsernameBox.getText());
+						}else {
+							Error error = new Error(frame,"fail");
+							error.setVisible(true);
+							System.exit(0);
+						}
+					}else if(UsernameBox.getText().length()==10) {
+						if(db.adminLogin(UsernameBox.getText(),new String(PasswordBox.getPassword()))) {
+							frame.setVisible(false);
+							lg.setVisible(false);
+							MainUIAdmin.getInstance();
+						}else {
+								Error error = new Error(frame,"fail");
+								error.setVisible(true);
+								System.exit(0);
+						}
 
 					}
 				}
+
+					
+		
+
+					
+				
 			});
 			
 			p1.add(fill1,cf1); 
