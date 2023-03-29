@@ -17,7 +17,7 @@ public class DB {
 
 		   String url = "jdbc:mysql://localhost:3306/";
 		   String user = "root";
-		    String password = "root1234";
+		    String password = "!!RootEyes!!";
 
 			conn = DriverManager.getConnection(url,user,password);
 			Statement statement = conn.createStatement();
@@ -59,6 +59,13 @@ public class DB {
 					" address VARCHAR(100), " +
 					" faculty VARCHAR(30), " +
 					" PRIMARY KEY ( account, password ));";
+			String create_courseRequirementsTable = "create table crouse_requirement" +
+					"(id INT AUTO_INCREMENT PRIMARY KEY,"+
+					"course_id VARCHAR(25) not null," +
+					"name VARCHAR(100)"+
+					"degree VARCHAR(100)"+
+					"FOREIGN KEY (course_id) REFERENCES courses(id)"+
+					"PRIMARY KEY(name, course_id));";
 			// DB already created check
 			ResultSet rs = statement.executeQuery(checkDB);
 			rs.next();
@@ -76,6 +83,7 @@ public class DB {
 				System.out.println("course enrollment table created successfully...");
 				statement.executeUpdate(create_adminTable);
 				System.out.println("admin table created successfully...");
+				statement.executeUpdate(create_courseRequirementsTable);
 //			sampleDB();
 			}else {
 				statement.executeUpdate(use_database);
@@ -295,7 +303,7 @@ public class DB {
 	//by inputting the course ID, return a long String of all courses prerequisite
 	public String course_prerequisite(String course_id){
 		try {
-			String sql = "select prequisites from courses where id = " + "'" + course_id + "'";
+			String sql = "select prequisites from courses where id = " + "'" + course_id + "';";
 			Statement pstmt = conn.createStatement();
 
 			ResultSet rs = pstmt.executeQuery(sql);
@@ -316,7 +324,7 @@ public class DB {
 	public static ArrayList<String> student_info(String account, String password){
 		ArrayList<String> result = new ArrayList<String>();
 		try {
-			String sql = "select * from students where account = ? and password = ?";
+			String sql = "select * from students where account = ? and password = ?;";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, account);
@@ -349,7 +357,7 @@ public class DB {
 	public static ArrayList<ArrayList<String>> getEnrolledCourses(String student_id){
 		ArrayList<ArrayList<String>> records = new ArrayList<ArrayList<String>>();
 		try {
-			String sql = "select * from course_enrollment where student_id = ?";
+			String sql = "select * from course_enrollment where student_id = ?;";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, student_id);
@@ -377,5 +385,94 @@ public class DB {
 		}
 
 		return records;
+	}
+	public static ArrayList<ArrayList<String>> getRequiredCourses(String degree){
+		/*
+		 * Input the degree of the student.
+		 * Returns array list of a string array list all the require courses for the degree.
+		 * Access course_id index: 0, name of course index: 1.
+		 */
+		ArrayList<ArrayList<String>> courses = new ArrayList<ArrayList<String>>();
+		String query = "SELECT * FROM course_requirements WHERE degree = ?;";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, degree);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ArrayList<String> course = new ArrayList<String>();
+				String courseId = rs.getString("course_id");
+				String name = rs.getString("name");
+				course.add(courseId);
+				course.add(name);
+				courses.add(course);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return courses;
+
+	}
+	public static boolean addRequiredCourse(String courseId, String degree) {
+		/*
+		 * Inputs courseId and the degree it is meant to be required for.
+		 * Returns boolean true if the insertion is executed with no problem, false otherwise.
+		 * 
+		 */
+		
+		String query = "INSERT INTO course_requirements(course_id,name,degree) VALUES(?,?,?);";
+		String courseName = getCourseName(courseId);
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, courseId);
+			pstmt.setString(2, courseName);
+			pstmt.setString(3, degree);
+			int rowsEffected = pstmt.executeUpdate();
+			if(rowsEffected == 1) return true;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+		
+	}
+	public static boolean removeRequiredCourse(String courseId, String degree) {
+		/*
+		 * Removes a required course using the inputs of the courseID and the degree it is required for
+		 * returns boolean true if successful, false if not.
+		 * 
+		 */
+		
+		String query = "DELETE FROM course_requirements WHERE course_id = ? AND degree = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, courseId);
+			pstmt.setString(2, degree);
+			int rowsEffected = pstmt.executeUpdate();
+			if(rowsEffected == 1) return true;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	private static String getCourseName(String courseId) {
+		/*
+		 * Used to get the name of a course using its Course ID
+		 * Returns name if successful null if not
+		 */
+		String query = "SELECT * FROM courses WHERE id= ?";
+		String courseName=null;
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, courseId);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				courseName = rs.getString("name");
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return courseName;
 	}
 }

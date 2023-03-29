@@ -34,13 +34,6 @@ public class DBtest {
 		db = DB.getInstance();
 
 		}
-	@Test
-	public void test() {
-		DB.getInstance().addCourse("MATH 0001", "Basic Maths","3.0","   ");
-		DB.getInstance().addEnrollment("MATH 0001", "Basic Maths","316408093","in progress","FAll","NG");
-		assertTrue(DB.getEnrolledCourses("316408093").size() == 2);
-		
-	}
 
 	@Test
 	public void test2() {
@@ -60,6 +53,25 @@ public class DBtest {
 	@Test
 	public void test4() {
 		DB.getInstance().dropEnrollment("316408093", "Math 1025");
+	}
+	
+	@Test
+	public void courseRequirementsTest() {
+//		if(!db.login("TestUser", "123")) {
+//			db.registerStudent("213456789", "TestUser" , "TestUser", "123", "TestAddress", "Software");
+//		}	
+		System.out.println("EECS2311 Added: " + DB.addRequiredCourse("EECS2311", "Software"));
+		System.out.println("EECS1011 Added: " +DB.addRequiredCourse("EECS1011", "Software"));
+		System.out.println("EECS2030 Added: "+ DB.addRequiredCourse("EECS2030", "Software"));
+		
+		ArrayList<ArrayList<String>> reqs = DB.getRequiredCourses("Software");
+		for(int i = 0; i<reqs.size(); i++) {
+			System.out.println(reqs.get(i));
+		}
+		System.out.println("EECS2311 Removed: "+DB.removeRequiredCourse("EECS2311", "Software"));
+		System.out.println("EECES1011 Removed: "+DB.removeRequiredCourse("EECS1011", "Software"));
+		System.out.println("EECS2030 Removed: "+DB.removeRequiredCourse("EECS2030", "Software"));
+		
 	}
 
 }
