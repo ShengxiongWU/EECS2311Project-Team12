@@ -40,13 +40,13 @@ public class Course {
 	/*
      * getter method for course name
      */
-	public String getName() {
+	public String getCourse_Name() {
 		return name;
 	}
 	/*
      * setter method for course name
      */
-	public void setName(String name) {
+	public void setCourse_Name(String name) {
 		this.name = name;
 	}
 	/*

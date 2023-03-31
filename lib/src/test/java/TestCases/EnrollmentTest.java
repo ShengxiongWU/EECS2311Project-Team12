@@ -130,10 +130,10 @@ public class EnrollmentTest {
 		assertEquals(enrollCourses.get(3).getCredit(), credits[3], 0.1);
 		
 		// Testing if course name is correct
-		assertEquals(enrollCourses.get(0).getName(), courseName[0]);
-		assertEquals(enrollCourses.get(1).getName(), courseName[1]);
-		assertEquals(enrollCourses.get(2).getName(), courseName[2]);
-		assertEquals(enrollCourses.get(3).getName(), courseName[3]);
+		assertEquals(enrollCourses.get(0).getCourse_Name(), courseName[0]);
+		assertEquals(enrollCourses.get(1).getCourse_Name(), courseName[1]);
+		assertEquals(enrollCourses.get(2).getCourse_Name(), courseName[2]);
+		assertEquals(enrollCourses.get(3).getCourse_Name(), courseName[3]);
 		
 		
 		
@@ -148,7 +148,7 @@ public class EnrollmentTest {
 		for(int i = 0; i<prereq2030.size(); i++) {
 			assertTrue(prereq2030.get(i).getCourse_id().equals(courseID2030[i]));
 			assertEquals(prereq2030.get(i).getCredit(), credits2030[i], 0.1);
-			assertEquals(prereq2030.get(i).getName(), courseName2030[i]);
+			assertEquals(prereq2030.get(i).getCourse_Name(), courseName2030[i]);
 		}
 		
 		//2011 prereq test
@@ -156,14 +156,14 @@ public class EnrollmentTest {
 		for(int i = 0; i<prereq2011.size(); i++) {
 			assertTrue(prereq2011.get(i).getCourse_id().equals(courseID2011[i]));
 			assertEquals(prereq2011.get(i).getCredit(), credits2011[i], 0.1);
-			assertEquals(prereq2011.get(i).getName(), courseName2011[i]);
+			assertEquals(prereq2011.get(i).getCourse_Name(), courseName2011[i]);
 		}
 	
 		ArrayList<Course> prereq2311 = enrollCourses.get(2).getPrerequisites();
 		for(int i = 0; i<prereq2311.size(); i++) {
 			assertTrue(prereq2311.get(i).getCourse_id().equals(courseID2311[i]));
 			assertEquals(prereq2311.get(i).getCredit(), credits2311[i], 0.1);
-			assertEquals(prereq2311.get(i).getName(), courseName2311[i]);
+			assertEquals(prereq2311.get(i).getCourse_Name(), courseName2311[i]);
 		}
 		
 		

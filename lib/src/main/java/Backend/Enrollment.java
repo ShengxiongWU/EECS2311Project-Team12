@@ -20,7 +20,7 @@ public class Enrollment {
 		this.student = student;
 		this.term_taken = term_taken;
 		String course_id = enroll.getCourse_id();
-		String course_name = enroll.getName();
+		String course_name = enroll.getCourse_Name();
 		String student_id = student.getID();
 		db.addEnrollment(student_id, course_name, course_id, term_taken, status, grade);
 	}
