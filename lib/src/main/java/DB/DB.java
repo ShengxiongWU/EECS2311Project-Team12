@@ -137,7 +137,7 @@ public class DB {
 //	}
 
 	//add one course to the course table in other words creating one course in the course system
-	public boolean addCourse(String id, String name, String credit, String prequisites) {
+	public static boolean addCourse(String id, String name, String credit, String prequisites) {
 		try {
 			String sql = "INSERT INTO courses(id,name,credit,prequisites)" + "VALUES(?,?,?,?)";
 
