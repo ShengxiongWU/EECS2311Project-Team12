@@ -161,7 +161,7 @@ public class DB {
 	 }
 	
 	//add course for one student
-	public boolean addEnrollment(String courseId, String name, String studentId , String status, String term, String grade) {
+	public static boolean addEnrollment(String courseId, String name, String studentId , String status, String term, String grade) {
 		try {
 			 String sql1 = "INSERT INTO course_enrollment(course_id,name,student_id,status,term_taken,grade)" + "VALUES(?,?,?,?,?,?);";
 			 
