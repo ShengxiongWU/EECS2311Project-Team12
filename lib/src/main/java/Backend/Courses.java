@@ -7,9 +7,11 @@ import DB.DB;
 
 
 public class Courses {
+	    //initialize variables 
 		private ArrayList<Course> all_Courses;
 		private static Courses courses;
 		private DB db = DB.getInstance();
+		
 		private Courses() {
 			//1000 level course
 			Course course1 = new Course("EECS 1090", "Computational Logic", 3.0, new ArrayList<Course>()); 
@@ -48,7 +50,7 @@ public class Courses {
 			all_Courses.add(course2_2);
 			all_Courses.add(course3);
 		}
-		
+		//get instance of a course
 		 public static Courses getInstance() {
 			   if(courses == null) {
 			         courses = new Courses();
@@ -56,7 +58,8 @@ public class Courses {
 			  
 			return courses;
 		   }
-
+		 
+		//get all courses as a arraylist
 		public ArrayList<Course> getAll_Courses() {
 			return all_Courses;
 		}
