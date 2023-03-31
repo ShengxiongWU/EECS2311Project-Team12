@@ -586,7 +586,14 @@ public class Initial {
 					@Override
 					public void actionPerformed(ActionEvent e){
 						Admin a = new Admin(FacultyBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText(),Address.getText());
-
+						if(!a.getStatus()) {
+							Error error = new Error(frame,"fail");
+							error.setVisible(true);
+							System.exit(0);
+						}
+						Error error = new Error(frame,"success");
+						error.setVisible(true);
+						ad.setVisible(false);
 					}
 				});
 				
