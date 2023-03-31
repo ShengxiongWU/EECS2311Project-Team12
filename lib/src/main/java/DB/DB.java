@@ -1,6 +1,7 @@
 package DB;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DB {
 	public String url;
@@ -59,13 +60,12 @@ public class DB {
 					" address VARCHAR(100), " +
 					" faculty VARCHAR(30), " +
 					" PRIMARY KEY ( account, password ));";
-			String create_courseRequirementsTable = "create table crouse_requirement" +
-					"(id INT AUTO_INCREMENT PRIMARY KEY,"+
-					"course_id VARCHAR(25) not null," +
-					"name VARCHAR(100)"+
-					"degree VARCHAR(100)"+
-					"FOREIGN KEY (course_id) REFERENCES courses(id)"+
-					"PRIMARY KEY(name, course_id));";
+			String create_courseRequirementsTable = "create table course_requirements" +
+					"(course_id VARCHAR(25) not null," +
+					"name VARCHAR(100),"+
+					"degree VARCHAR(100),"+
+					"FOREIGN KEY (course_id) REFERENCES courses(id),"+
+					"PRIMARY KEY(degree, course_id));";
 			// DB already created check
 			ResultSet rs = statement.executeQuery(checkDB);
 			rs.next();
@@ -84,6 +84,7 @@ public class DB {
 				statement.executeUpdate(create_adminTable);
 				System.out.println("admin table created successfully...");
 				statement.executeUpdate(create_courseRequirementsTable);
+				System.out.println("course requirements talbe created successfully...");
 //			sampleDB();
 			}else {
 				statement.executeUpdate(use_database);
@@ -386,13 +387,12 @@ public class DB {
 
 		return records;
 	}
-	public static ArrayList<ArrayList<String>> getRequiredCourses(String degree){
+	public static ArrayList<HashMap<String, String>> getRequiredCourses(String degree){
 		/*
 		 * Input the degree of the student.
-		 * Returns array list of a string array list all the require courses for the degree.
-		 * Access course_id index: 0, name of course index: 1.
+		 * Returns Array list of course name and id in a hashmap
 		 */
-		ArrayList<ArrayList<String>> courses = new ArrayList<ArrayList<String>>();
+		ArrayList<HashMap<String,String>> courses = new ArrayList<HashMap<String,String>>();
 		String query = "SELECT * FROM course_requirements WHERE degree = ?;";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(query);
@@ -400,11 +400,11 @@ public class DB {
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				ArrayList<String> course = new ArrayList<String>();
+				HashMap<String, String> course = new HashMap<String, String>();
 				String courseId = rs.getString("course_id");
 				String name = rs.getString("name");
-				course.add(courseId);
-				course.add(name);
+				course.put("courseId", courseId);
+				course.put("name", name);
 				courses.add(course);
 			}
 		}catch(SQLException e) {
@@ -474,5 +474,54 @@ public class DB {
 			e.printStackTrace();
 		}
 		return courseName;
+	}
+	public static HashMap<String,String> getCrouseInfo(String course_id) {
+		/*
+		 * Input the course id (e.g. EECS2311)
+		 * Returns hashmap info of the course (courseId, name, credit and prerequisites).
+		 */
+		String query = "SELECT * FROM courses where id = ?";
+		HashMap<String,String> info = new HashMap<>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, course_id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				info.put("courseId", rs.getString("id"));
+				info.put("name", rs.getString("name"));
+				info.put("credit", rs.getString("credit"));
+				info.put("prerequisites", rs.getString("prequisites"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return info;
+	}
+	public static ArrayList<HashMap<String, String>> getRequiredCoursesForStudent(String studentId, String degree){
+		/*
+		 * Input the id of the student
+		 * Returns ArrayList of the required courses of the student that they, 
+		 * haven't enrolled in yet in a hashmap.
+		 */
+		// Enrollment: 
+		ArrayList<HashMap<String, String>> studReqCours = new ArrayList<HashMap<String, String>>();
+		ArrayList<HashMap<String, String>> reqCours = getRequiredCourses(degree);
+		ArrayList<ArrayList<String>> enrolledCourses = getEnrolledCourses(studentId);
+
+		for(int i = 0; i<reqCours.size(); i++) {
+			boolean flag = false;
+			for(int j = 0; j<enrolledCourses.size(); j++) {
+				// if a required course is in the enrolledCourses make flag true and break.
+				if(reqCours.get(i).get("courseId").equals(enrolledCourses.get(j).get(0))) {
+					flag = true;
+					break;
+				}
+			}
+			// if required course isn't found in enrolled courses add to studReqCours
+			if(!flag) {
+				studReqCours.add(reqCours.get(i));
+			}
+		}
+		return studReqCours;
 	}
 }
