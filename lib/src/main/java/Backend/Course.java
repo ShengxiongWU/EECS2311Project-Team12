@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import DB.DB;
 
 
-
+//Course class
 public class Course {
 	private String course_id;
 	private String name;
