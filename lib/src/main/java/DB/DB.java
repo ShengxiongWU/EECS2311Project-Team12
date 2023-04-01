@@ -354,6 +354,50 @@ public class DB {
 		return result;
 	}
 	
+	//get student ID by using student account and password
+	public static String getStudentID(String account, String password){
+		String result;
+		try {
+			String sql = "select id from students where account = ? and password = ?;";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, account);
+			pstmt.setString(2, password);
+			ResultSet rs = pstmt.executeQuery();
+
+			if(rs.next()) {
+				result = rs.getString("id");
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+	
+	   //get student degree by using student account and password
+		public static String getStudentDegree(String account, String password){
+			String result;
+			try {
+				String sql = "select degree from students where account = ? and password = ?;";
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, account);
+				pstmt.setString(2, password);
+				ResultSet rs = pstmt.executeQuery();
+
+				if(rs.next()) {
+					result = rs.getString("degree");
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+
+			return result;
+		}
+	
 	//return the enrolled course of one student using the student ID
 	public static ArrayList<ArrayList<String>> getEnrolledCourses(String student_id){
 		ArrayList<ArrayList<String>> records = new ArrayList<ArrayList<String>>();
@@ -523,5 +567,81 @@ public class DB {
 			}
 		}
 		return studReqCours;
+	}
+	
+	public static double getOverAllGPAForStudent(String studentID){
+		/*
+		 * Input the id of the student
+		 * Returns the OverAll GPA of the student 
+		 */
+		
+		// getEnrollmentCourse of the student: 
+		ArrayList<ArrayList<String>> enrolledCourses = getEnrolledCourses(studentId);
+		double grade = 0;
+		double sumgpa = 0;
+		int courseCount = enrolledCourse.size();
+		for(int i = 0; i < enrolledCourse.size(); i++) {
+			String grade = enrolledCourse.get(i).get(5);
+			if(grade == "A+") {
+				sumgpa += 9;
+			}
+			else if(grade == "A") {
+				sumgpa += 8;
+			}
+			else if(grade == "B+") {
+				sumgpa += 7;
+			}
+			else if(grade == "B") {
+				sumgpa += 6;
+			}
+			else if(grade == "C+") {
+				sumgpa += 5;
+			}
+			else if(grade == "C" ) {
+				sumgpa += 4;
+			}
+			else if(grade == "D+") {
+				sumgpa += 3;
+			}
+			else if(grade == "D") {
+				sumgpa += 2;
+			}
+			else if(grade == "E") {
+				sumgpa += 1;
+			}
+			else if(grade == "F") {
+				sumgpa += 0;
+			}
+		}
+		grade = sumgpa/courseCount;
+		return grade;
+	}
+	
+	public static ArrayList<HashMap<String, String>> getFailedCoursesForStudent(String studentId){
+		/*
+		 * Input the id of the student
+		 * Returns ArrayList of the Failed courses of the student.
+		 */
+		// Enrollment: 
+		ArrayList<ArrayList<String>> enrolledCourses = getEnrolledCourses(studentId);
+		ArrayList<HashMap<String,String>> failedCourses = new ArrayList<HashMap<String,String>>();
+		String query = "SELECT * FROM courses WHERE grade = 'E' or grade = 'F';";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				HashMap<String, String> failedCourse = new HashMap<String, String>();
+				String courseId = rs.getString("course_id");
+				String name = rs.getString("name");
+				failedCourse.put("courseId", courseId);
+				failedCourse.put("name", name);
+				failedCourses.add(course);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return failedCourses;
+		
 	}
 }
