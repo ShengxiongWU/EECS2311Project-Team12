@@ -576,7 +576,7 @@ public class DB {
 		 */
 		
 		// getEnrollmentCourse of the student: 
-		ArrayList<ArrayList<String>> enrolledCourses = getEnrolledCourses(studentId);
+		ArrayList<ArrayList<String>> enrolledCourses = getEnrolledCourses(studentID);
 		double result = 0;
 		double sumgpa = 0;
 		int courseCount = enrolledCourses.size();
