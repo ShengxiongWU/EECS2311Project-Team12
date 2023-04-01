@@ -105,7 +105,7 @@ public class MainUI extends JDialog{
 		AddCourse.addActionListener(new AccessListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				AddCourse ad = new AddCourse(frame,DB.student_info(account, password).get(1),DB.student_info(account, password).get(0),"waiting","NA");
+				AddCourse ad = new AddCourse(frame,DB.student_info(account, password).get(1),DB.student_info(account, password).get(0),"inprogress","NA");
 				ad.setVisible(true);
 			}
 		});
