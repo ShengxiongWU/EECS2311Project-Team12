@@ -187,6 +187,32 @@ public class DB {
 		return false;
 
 	}
+	
+	//update enrollment status and grade
+	public static boolean updateEnrollment(String courseId, String studentId , String status, String grade) {
+		try {
+			 String sql1 = "Update course_enrollment set status = ?, grade = ? where course_id = ? and student_id = ?;";
+			 
+			PreparedStatement pstmt1 = conn.prepareStatement(sql1,Statement.RETURN_GENERATED_KEYS);
+			pstmt1.setString(1, status);
+			pstmt1.setString(2, grade);
+			pstmt1.setString(3, courseId);
+			pstmt1.setString(4, studentId);
+		
+
+			int rowAffected = pstmt1.executeUpdate();
+			if(rowAffected == 1)
+			{
+				return true;
+			}
+
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+
+	}
 
 	//drop one record of enrollment, by using this function, a student can drop his course or admin can drop one student's course
 	public boolean dropEnrollment(String studentId, String courseId) {
