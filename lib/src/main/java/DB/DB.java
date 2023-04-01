@@ -356,7 +356,7 @@ public class DB {
 	
 	//get student ID by using student account and password
 	public static String getStudentID(String account, String password){
-		String result;
+		String result = "";
 		try {
 			String sql = "select id from students where account = ? and password = ?;";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -378,7 +378,7 @@ public class DB {
 	
 	   //get student degree by using student account and password
 		public static String getStudentDegree(String account, String password){
-			String result;
+			String result = "";
 			try {
 				String sql = "select degree from students where account = ? and password = ?;";
 				PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -577,11 +577,11 @@ public class DB {
 		
 		// getEnrollmentCourse of the student: 
 		ArrayList<ArrayList<String>> enrolledCourses = getEnrolledCourses(studentId);
-		double grade = 0;
+		double result = 0;
 		double sumgpa = 0;
-		int courseCount = enrolledCourse.size();
-		for(int i = 0; i < enrolledCourse.size(); i++) {
-			String grade = enrolledCourse.get(i).get(5);
+		int courseCount = enrolledCourses.size();
+		for(int i = 0; i < enrolledCourses.size(); i++) {
+			String grade = enrolledCourses.get(i).get(5);
 			if(grade == "A+") {
 				sumgpa += 9;
 			}
@@ -613,8 +613,8 @@ public class DB {
 				sumgpa += 0;
 			}
 		}
-		grade = sumgpa/courseCount;
-		return grade;
+		result = sumgpa/courseCount;
+		return result;
 	}
 	
 	public static ArrayList<HashMap<String, String>> getFailedCoursesForStudent(String studentId){
@@ -636,7 +636,7 @@ public class DB {
 				String name = rs.getString("name");
 				failedCourse.put("courseId", courseId);
 				failedCourse.put("name", name);
-				failedCourses.add(course);
+				failedCourses.add(failedCourse);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
