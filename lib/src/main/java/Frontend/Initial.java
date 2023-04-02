@@ -203,9 +203,11 @@ public class Initial {
 								System.exit(0);
 						}
 
+					}else {				
+						Error error = new Error(frame,"incorrect username");
+						error.setVisible(true);
 					}
-					Error error = new Error(frame,"incorrect username");
-					error.setVisible(true);
+
 					
 					
 				}
