@@ -69,8 +69,10 @@ public class MainUIAdmin extends JDialog{
 
 		JButton CreateCourse = new JButton("Create Course");
 		JButton AddEnrollment = new JButton("Add Enrollment");
+		JButton UpdatedEnrollment = new JButton("Updated Enrollment");
 		JButton AddRequiredCourse = new JButton("Add RequiredCourse");
 		JButton RemoveRequiredCourse = new JButton("Remove RequiredCourse");
+		
 		
 		CreateCourse.addActionListener(new AccessListener(){
 			@Override
@@ -88,6 +90,8 @@ public class MainUIAdmin extends JDialog{
 				ad.setVisible(true);
 			}
 		});
+		
+		
 		
 		AddRequiredCourse.addActionListener(new AccessListener(){
 			@Override
@@ -107,8 +111,9 @@ public class MainUIAdmin extends JDialog{
 
 		p1.add(CreateCourse); 
 		p2.add(AddEnrollment);
-		p3.add(AddRequiredCourse);
-		p4.add(RemoveRequiredCourse);
+		p3.add(UpdatedEnrollment);
+		p4.add(AddRequiredCourse);
+		p5.add(RemoveRequiredCourse);
 
 
 	}
@@ -625,6 +630,150 @@ public class MainUIAdmin extends JDialog{
 			
 			p1.add(DegreeBox,c3); 
 			p1.add(Term,c4);
+			
+			
+
+			p2.add(submit);
+		}
+		
+		
+		
+		private class AccessListener implements ActionListener{
+			
+			public void actionPerformed(ActionEvent e) {
+			}
+			
+			
+			
+		}
+
+
+
+
+
+
+	}
+	
+	private class UpdatedEnrollment extends JDialog{
+
+		private JTextField CourseIDBox = null;
+		private JTextField StatusBox = null;
+		private JTextField StudentIDBox = null;
+		private JTextField GradeBox = null;
+		private UpdatedEnrollment ad = null;
+		private Container container = null;
+
+		
+		public UpdatedEnrollment(JFrame j) {
+			super(j,"UpdatedEnrollment",true);
+			this.ad = this;
+			InitialFrame();
+	        GridBagLayout gridBag = new GridBagLayout();   
+			container.setLayout(new GridLayout(2,1));
+			JPanel p1 = new JPanel(gridBag);
+			JPanel p2 = new JPanel(new FlowLayout());
+
+			CreateAndSetComponent(p1,p2);
+			container.add(p1);
+			container.add(p2);
+
+			ad.setVisible(true);
+		}
+
+		private class Error extends JDialog {
+			public Error(JFrame j,String m) {
+				super(j,"result",true);
+				setSize(450,150);
+				setLocationRelativeTo(null);
+				Container c = getContentPane();
+				c.setLayout(new FlowLayout());
+				JLabel error = new JLabel(m);
+				c.add(error);
+			}
+
+		}
+		private void InitialFrame() {
+			ad.setSize(400, 350);
+			ad.setLocationRelativeTo(null);
+			container = ad.getContentPane();
+		}
+		private void GridBagConstraintsSetter(GridBagConstraints c, int gridx, int gridy, int ipadx) {
+			c.gridx = gridx;
+			c.gridy = gridy;
+			c.ipadx = ipadx;
+		}
+		private void CreateAndSetComponent(JPanel p1, JPanel p2) {
+			CourseIDBox = new JTextField();
+			CourseIDBox.setColumns(10);
+			GridBagConstraints c1 = new GridBagConstraints();
+			GridBagConstraintsSetter(c1,4,1,70);
+
+			JLabel CourseID = new JLabel("Course ID:");
+			GridBagConstraints c2 = new GridBagConstraints();
+			GridBagConstraintsSetter(c2,0,1,0);
+			
+			StudentIDBox = new JTextField();
+			StudentIDBox.setColumns(10);
+			GridBagConstraints c3 = new GridBagConstraints();
+			GridBagConstraintsSetter(c3,4,2,70);
+
+			JLabel Term = new JLabel("StudentID:");
+			GridBagConstraints c4 = new GridBagConstraints();
+			GridBagConstraintsSetter(c4,0,2,0);
+			
+			StatusBox = new JTextField();
+			StatusBox.setColumns(10);
+			GridBagConstraints c5 = new GridBagConstraints();
+			GridBagConstraintsSetter(c5,4,2,70);
+
+			JLabel Status = new JLabel("Status:");
+			GridBagConstraints c6 = new GridBagConstraints();
+			GridBagConstraintsSetter(c6,0,2,0);
+			
+			GradeBox = new JTextField();
+			GradeBox.setColumns(10);
+			GridBagConstraints c7 = new GridBagConstraints();
+			GridBagConstraintsSetter(c3,4,2,70);
+
+			JLabel Grade = new JLabel("Grade:");
+			GridBagConstraints c8 = new GridBagConstraints();
+			GridBagConstraintsSetter(c4,0,2,0);
+			
+			
+			
+			JButton submit = new JButton("Submit!");
+			
+			submit.addActionListener(new AccessListener(){
+				@Override
+				public void actionPerformed(ActionEvent e){
+					boolean f = DB.updateEnrollment(CourseIDBox.getText(),StudentIDBox.getText(),StatusBox.getText(),GradeBox.getText());;
+				if(f) {
+					Error e1 = new Error(frame,"success");
+					ad.setVisible(false);
+					e1.setVisible(true);
+
+					
+				}else {
+					Error e2 = new Error(frame,"fail");
+					ad.setVisible(false);
+					e2.setVisible(true);
+
+				}
+				}
+			});
+			
+			p1.add(CourseIDBox,c1); 
+			p1.add(CourseID,c2); 
+			
+			p1.add(StudentIDBox,c3); 
+			p1.add(Term,c4);
+			
+			p1.add(StatusBox,c5); 
+			p1.add(Status,c6);
+			
+			p1.add(GradeBox,c7); 
+			p1.add(Grade,c8);
+			
 			
 			
 
