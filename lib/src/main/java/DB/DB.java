@@ -633,7 +633,9 @@ public class DB {
 				credit+= courseCredit;
 			}
 		}
-		result = sumgpa/credit;
+		if(credit != 0) {
+			result = sumgpa/credit;
+		}
 		return result;
 	}
 	
