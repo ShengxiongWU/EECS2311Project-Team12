@@ -473,9 +473,12 @@ public class DB {
 			while(rs.next()) {
 				HashMap<String, String> course = new HashMap<String, String>();
 				String courseId = rs.getString("course_id");
+				HashMap<String, String> info = getCourseInfo(courseId);
+				String credit = info.get("credit");
 				String name = rs.getString("name");
 				course.put("courseId", courseId);
 				course.put("name", name);
+				course.put("credit", credit);
 				courses.add(course);
 			}
 		}catch(SQLException e) {
@@ -546,7 +549,7 @@ public class DB {
 		}
 		return courseName;
 	}
-	public static HashMap<String,String> getCrouseInfo(String course_id) {
+	public static HashMap<String,String> getCourseInfo(String course_id) {
 		/*
 		 * Input the course id (e.g. EECS2311)
 		 * Returns hashmap info of the course (courseId, name, credit and prerequisites).
@@ -624,7 +627,7 @@ public class DB {
 			 * Get course Id from enrolled courses
 			 * Get course credit from course info
 			 */
-			HashMap<String, String> info = getCrouseInfo(enrolledCourses.get(i).get(0));
+			HashMap<String, String> info = getCourseInfo(enrolledCourses.get(i).get(0));
 			String grade = enrolledCourses.get(i).get(5);
 			Double courseCredit = Double.parseDouble(info.get("credit"));
 			if(gradePoint.containsKey(grade)) {
