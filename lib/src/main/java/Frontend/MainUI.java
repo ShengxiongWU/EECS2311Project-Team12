@@ -10,8 +10,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -107,7 +109,7 @@ public class MainUI extends JDialog{
 				+ result.get(3) + "\n" + "address: " + result.get(4) + "\n"
 				+ "degree: " + result.get(5);
 				Result s2 = new Result(frame, s);
-//				s2.setVisible(true);
+				s2.setVisible(true);
 			}
 		});
 		
@@ -126,7 +128,7 @@ public class MainUI extends JDialog{
 		DropCourse.addActionListener(new AccessListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				
+				DropCourse d = new DropCourse(frame);
 			}
 		});
 		
@@ -143,7 +145,7 @@ public class MainUI extends JDialog{
 				}
 
 				Result s2 = new Result(frame, s);
-//				s2.setVisible(true);
+				s2.setVisible(true);
 			}
 		});
 		
@@ -152,7 +154,7 @@ public class MainUI extends JDialog{
 			public void actionPerformed(ActionEvent e){
 				String result = "Your Overall GPA is " + DB.getOverAllGPAForStudent(DB.getStudentID(account, password));
 				Result s2 = new Result(frame, result);
-//				s2.setVisible(true);
+				s2.setVisible(true);
 			}
 		});
 		
@@ -169,7 +171,7 @@ public class MainUI extends JDialog{
 				}
 
 				Result s2 = new Result(frame, s);
-//				s2.setVisible(true);
+				s2.setVisible(true);
 			}
 		});
 		
@@ -205,7 +207,8 @@ public class MainUI extends JDialog{
 	private class AddCourse extends JDialog{
 
 		private JTextField CourseIDBox = null;
-		private JTextField TermBox = null;
+		Vector<String> TermName = new Vector<String>();
+		JComboBox<String> TermBox;
 		private AddCourse ad = null;
 		private Container container = null;
 		private String StudentName;
@@ -266,8 +269,11 @@ public class MainUI extends JDialog{
 			GridBagConstraints c2 = new GridBagConstraints();
 			GridBagConstraintsSetter(c2,0,1,0);
 			
-			TermBox = new JTextField();
-			TermBox.setColumns(10);
+			TermName.add("FALL");
+			TermName.add("WINTER");
+			TermName.add("SUMMER");
+			TermBox = new JComboBox<String>(TermName);
+			TermBox.setSelectedItem("FALL");
 			GridBagConstraints c3 = new GridBagConstraints();
 			GridBagConstraintsSetter(c3,4,2,70);
 
@@ -281,7 +287,7 @@ public class MainUI extends JDialog{
 			submit.addActionListener(new AccessListener(){
 				@Override
 				public void actionPerformed(ActionEvent e){
-					boolean f = DB.addEnrollment(CourseIDBox.getText(), StudentName, StudentID, status, TermBox.getText(), grade);
+					boolean f = DB.addEnrollment(CourseIDBox.getText(), StudentName, StudentID, status, (String)TermBox.getSelectedItem(), grade);
 					if(f) {
 						Error e1 = new Error(frame,"success");
 						ad.setVisible(false);
@@ -303,6 +309,109 @@ public class MainUI extends JDialog{
 			p1.add(CourseID,c2); 
 			p1.add(TermBox,c3); 
 			p1.add(Term,c4);
+
+			p2.add(submit);
+		}
+		
+		
+		
+		private class AccessListener implements ActionListener{
+			
+			public void actionPerformed(ActionEvent e) {
+			}
+			
+			
+			
+		}
+
+
+
+
+
+
+	}
+	
+	private class DropCourse extends JDialog{
+
+		private JTextField CourseIDBox = null;
+		private DropCourse ad = null;
+		private Container container = null;
+
+		
+		public DropCourse(JFrame j) {
+			super(j,"AddCourse",true);
+			this.ad = this;
+			InitialFrame();
+	        GridBagLayout gridBag = new GridBagLayout();   
+			container.setLayout(new GridLayout(2,1));
+			JPanel p1 = new JPanel(gridBag);
+			JPanel p2 = new JPanel(new FlowLayout());
+
+			CreateAndSetComponent(p1,p2);
+			container.add(p1);
+			container.add(p2);
+			
+			ad.setVisible(true);
+		}
+
+		private class Error extends JDialog {
+			public Error(JFrame j,String m) {
+				super(j,"result",true);
+				setSize(450,150);
+				setLocationRelativeTo(null);
+				Container c = getContentPane();
+				c.setLayout(new FlowLayout());
+				JLabel error = new JLabel(m);
+				c.add(error);
+			}
+
+		}
+		private void InitialFrame() {
+			ad.setSize(400, 350);
+			ad.setLocationRelativeTo(null);
+			container = ad.getContentPane();
+		}
+		private void GridBagConstraintsSetter(GridBagConstraints c, int gridx, int gridy, int ipadx) {
+			c.gridx = gridx;
+			c.gridy = gridy;
+			c.ipadx = ipadx;
+		}
+		private void CreateAndSetComponent(JPanel p1, JPanel p2) {
+			CourseIDBox = new JTextField();
+			CourseIDBox.setColumns(10);
+			GridBagConstraints c1 = new GridBagConstraints();
+			GridBagConstraintsSetter(c1,4,1,70);
+
+			JLabel CourseID = new JLabel("Course ID:");
+			GridBagConstraints c2 = new GridBagConstraints();
+			GridBagConstraintsSetter(c2,0,1,0);
+	
+			
+			JButton submit = new JButton("Submit!");
+			
+			submit.addActionListener(new AccessListener(){
+				@Override
+				public void actionPerformed(ActionEvent e){
+					boolean f = DB.dropEnrollment(DB.getStudentID(account, password), CourseIDBox.getText());
+					if(f) {
+						Error e1 = new Error(frame,"success");
+						ad.setVisible(false);
+						e1.setVisible(true);
+
+						
+					}else {
+						Error e2 = new Error(frame,"fail");
+						ad.setVisible(false);
+						e2.setVisible(true);
+
+					}
+					
+				
+				}
+			});
+			
+			p1.add(CourseIDBox,c1); 
+			p1.add(CourseID,c2); 
 
 			p2.add(submit);
 		}

@@ -215,7 +215,7 @@ public class DB {
 	}
 
 	//drop one record of enrollment, by using this function, a student can drop his course or admin can drop one student's course
-	public boolean dropEnrollment(String studentId, String courseId) {
+	public static boolean dropEnrollment(String studentId, String courseId) {
 		try {
 			String query = "DELETE FROM course_enrollment WHERE student_id=? and course_id=?";
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);

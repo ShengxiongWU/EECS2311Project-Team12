@@ -10,8 +10,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -83,7 +85,7 @@ public class MainUIAdmin extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e){
 				CreateCourse c = new CreateCourse(frame);
-				c.setVisible(true);
+//				c.setVisible(true);
 			}
 		});
 		
@@ -319,7 +321,8 @@ public class MainUIAdmin extends JDialog{
 	private class AddCourse extends JDialog{
 
 		private JTextField CourseIDBox = null;
-		private JTextField TermBox = null;
+		Vector<String> TermName = new Vector<String>();
+		JComboBox<String> TermBox;
 		private JTextField StudentIDBox = null;
 		private AddCourse ad = null;
 		private Container container = null;
@@ -342,6 +345,8 @@ public class MainUIAdmin extends JDialog{
 			
 			this.status = status;
 			this.grade = grade;
+			
+
 			ad.setVisible(true);
 		}
 
@@ -377,8 +382,7 @@ public class MainUIAdmin extends JDialog{
 			GridBagConstraints c2 = new GridBagConstraints();
 			GridBagConstraintsSetter(c2,0,1,0);
 			
-			TermBox = new JTextField();
-			TermBox.setColumns(10);
+
 			GridBagConstraints c3 = new GridBagConstraints();
 			GridBagConstraintsSetter(c3,4,2,70);
 
@@ -395,13 +399,18 @@ public class MainUIAdmin extends JDialog{
 			GridBagConstraints c6 = new GridBagConstraints();
 			GridBagConstraintsSetter(c6,0,3,0);
 			
+			TermName.add("FALL");
+			TermName.add("WINTER");
+			TermName.add("SUMMER");
+			TermBox = new JComboBox<String>(TermName);
+			TermBox.setSelectedItem("FALL");
 			
 			JButton submit = new JButton("Submit!");
 			
 			submit.addActionListener(new AccessListener(){
 				@Override
 				public void actionPerformed(ActionEvent e){
-					boolean f = DB.addEnrollment(CourseIDBox.getText(),DB.getCourseInfo(CourseIDBox.getText()).get("name") , StudentIDBox.getText(), status, TermBox.getText(), grade);
+					boolean f = DB.addEnrollment(CourseIDBox.getText(),DB.getCourseInfo(CourseIDBox.getText()).get("name") , StudentIDBox.getText(), status, (String)TermBox.getSelectedItem(), grade);
 
 				if(f) {
 					Error e1 = new Error(frame,"success");
@@ -693,9 +702,9 @@ public class MainUIAdmin extends JDialog{
 	private class UpdatedEnrollment extends JDialog{
 
 		private JTextField CourseIDBox = null;
-		private JTextField StatusBox = null;
+		private JComboBox<String> StatusBox = null;
 		private JTextField StudentIDBox = null;
-		private JTextField GradeBox = null;
+		private JComboBox<String> GradeBox = null;
 		private UpdatedEnrollment ad = null;
 		private Container container = null;
 
@@ -757,8 +766,12 @@ public class MainUIAdmin extends JDialog{
 			GridBagConstraints c4 = new GridBagConstraints();
 			GridBagConstraintsSetter(c4,0,2,0);
 			
-			StatusBox = new JTextField();
-			StatusBox.setColumns(10);
+			Vector<String> StatusName = new Vector<String>();
+			StatusName.add("In Progress");
+			StatusName.add("Finished");
+			
+			StatusBox = new JComboBox<String>(StatusName);;
+
 			GridBagConstraints c5 = new GridBagConstraints();
 			GridBagConstraintsSetter(c5,4,3,70);
 
@@ -766,8 +779,19 @@ public class MainUIAdmin extends JDialog{
 			GridBagConstraints c6 = new GridBagConstraints();
 			GridBagConstraintsSetter(c6,0,3,0);
 			
-			GradeBox = new JTextField();
-			GradeBox.setColumns(10);
+			Vector<String> GradeName = new Vector<String>();
+			GradeName.add("A+");
+			GradeName.add("A");
+			GradeName.add("B+");
+			GradeName.add("B");
+			GradeName.add("C+");
+			GradeName.add("C");
+			GradeName.add("D+");
+			GradeName.add("D");
+			GradeName.add("E");
+			GradeName.add("F");
+			GradeName.add("NA");
+			GradeBox = new JComboBox<String>(GradeName);
 			GridBagConstraints c7 = new GridBagConstraints();
 			GridBagConstraintsSetter(c7,4,4,70);
 
@@ -782,7 +806,7 @@ public class MainUIAdmin extends JDialog{
 			submit.addActionListener(new AccessListener(){
 				@Override
 				public void actionPerformed(ActionEvent e){
-					boolean f = DB.updateEnrollment(CourseIDBox.getText(),StudentIDBox.getText(),StatusBox.getText(),GradeBox.getText());;
+					boolean f = DB.updateEnrollment(CourseIDBox.getText(),StudentIDBox.getText(),(String)StatusBox.getSelectedItem(),(String)GradeBox.getSelectedItem());;
 				if(f) {
 					Error e1 = new Error(frame,"success");
 					ad.setVisible(false);

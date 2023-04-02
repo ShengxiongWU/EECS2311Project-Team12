@@ -133,7 +133,7 @@ public class Initial {
 
 		private class Error extends JDialog {
 			public Error(JFrame j,String m) {
-				super(j,"error",true);
+				super(j,"result",true);
 				setSize(450,150);
 				setLocationRelativeTo(null);
 				Container c = getContentPane();
@@ -204,6 +204,10 @@ public class Initial {
 						}
 
 					}
+					Error error = new Error(frame,"incorrect username");
+					error.setVisible(true);
+					
+					
 				}
 
 					
@@ -338,7 +342,7 @@ public class Initial {
 
 			private class Error extends JDialog {
 				public Error(JFrame j,String m) {
-					super(j,"error",true);
+					super(j,"result",true);
 					setSize(450,150);
 					setLocationRelativeTo(null);
 					Container c = getContentPane();
@@ -422,15 +426,22 @@ public class Initial {
 				submit.addActionListener(new AccessListener(){
 					@Override
 					public void actionPerformed(ActionEvent e){
-						Student s = new Student(NameBox.getText(),DegreeBox.getText(),AddressBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText());				
-					if(!s.getStatus()) {
-						Error error = new Error(frame,"fail");
-						error.setVisible(true);
-						System.exit(0);
-					}
-					Error error = new Error(frame,"success");
-					error.setVisible(true);
-					sr.setVisible(false);
+						if(UsernameBox.getText().length()!=9) {
+							Error error = new Error(frame,"valid username is 9 digits");
+							error.setVisible(true);
+							
+						}else {
+							Student s = new Student(NameBox.getText(),DegreeBox.getText(),AddressBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText());				
+							if(!s.getStatus()) {
+								Error error = new Error(frame,"fail");
+								error.setVisible(true);
+								System.exit(0);
+							}
+							Error error = new Error(frame,"success");
+							error.setVisible(true);
+							sr.setVisible(false);
+						}
+
 //					System.out.println(UsernameBox.getText()+" "+PasswordBox.getText());
 					}
 				});
@@ -501,7 +512,7 @@ public class Initial {
 
 			private class Error extends JDialog {
 				public Error(JFrame j,String m) {
-					super(j,"error",true);
+					super(j,"result",true);
 					setSize(450,150);
 					setLocationRelativeTo(null);
 					Container c = getContentPane();
@@ -585,15 +596,22 @@ public class Initial {
 				submit.addActionListener(new AccessListener(){
 					@Override
 					public void actionPerformed(ActionEvent e){
-						Admin a = new Admin(FacultyBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText(),Address.getText());
-						if(!a.getStatus()) {
-							Error error = new Error(frame,"fail");
+						if(UsernameBox.getText().length()!=10) {
+							Error error = new Error(frame,"valid username is 10 digits");
 							error.setVisible(true);
-							System.exit(0);
+							
+						}else {
+							Admin a = new Admin(FacultyBox.getText(),IDBox.getText(),UsernameBox.getText(),PasswordBox.getText(),Address.getText());
+							if(!a.getStatus()) {
+								Error error = new Error(frame,"fail");
+								error.setVisible(true);
+								System.exit(0);
+							}
+							Error error = new Error(frame,"success");
+							error.setVisible(true);
+							ad.setVisible(false);
 						}
-						Error error = new Error(frame,"success");
-						error.setVisible(true);
-						ad.setVisible(false);
+
 					}
 				});
 				
