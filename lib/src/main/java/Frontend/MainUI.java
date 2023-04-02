@@ -55,13 +55,15 @@ public class MainUI extends JDialog{
 		JPanel p2 = new JPanel(gridBag);
 		JPanel p3 = new JPanel(gridBag);
 		JPanel p4 = new JPanel(gridBag);
-		JPanel p5 = new JPanel(new FlowLayout());
-		CreateAndSetComponent(p1,p2,p3,p4,p5);
+		JPanel p5 = new JPanel(gridBag);
+		JPanel p6 = new JPanel(new FlowLayout());
+		CreateAndSetComponent(p1,p2,p3,p4,p5,p6);
 		container.add(p1);
 		container.add(p2);
 		container.add(p3);
 		container.add(p4);
 		container.add(p5);
+		container.add(p6);
 		frame.setVisible(true);
 	}
 	
@@ -78,7 +80,7 @@ public class MainUI extends JDialog{
 
 	}
 	
-	private void CreateAndSetComponent(JPanel p1, JPanel p2, JPanel p3,JPanel p4,JPanel p5) {
+	private void CreateAndSetComponent(JPanel p1, JPanel p2, JPanel p3,JPanel p4,JPanel p5,JPanel p6) {
 
 		
 
@@ -91,6 +93,8 @@ public class MainUI extends JDialog{
 		JButton CheckCourse = new JButton("Check Course");
 		
 		JButton GetOverallGPA = new JButton("Check GPA");
+		
+		JButton GetRequiredCourses = new JButton("Get Required Courses");
 		
 
 		
@@ -151,6 +155,24 @@ public class MainUI extends JDialog{
 				s2.setVisible(true);
 			}
 		});
+		
+		GetRequiredCourses.addActionListener(new AccessListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				ArrayList<ArrayList<String>> result0 = DB.getEnrolledCourses(DB.getStudentID(account, password));
+				
+				String s = "";
+				for(ArrayList<String> result: result0 ) {
+					s += "course_id: "+result.get(0)+"\n"+"Course_name: "+result.get(1)
+					+ "\n" + "status: " + result.get(3) + "\n" + "term_taken: "
+					+ result.get(4) + "\n" + "grade: " + result.get(5) + "\n\n";
+				}
+
+				Result s2 = new Result(frame, s);
+				s2.setVisible(true);
+			}
+		});
+		
 
 		p1.add(AddCourse); 
 
@@ -158,6 +180,7 @@ public class MainUI extends JDialog{
 		p3.add(GetPersonalInfo);
 		p4.add(CheckCourse);
 		p5.add(GetOverallGPA);
+		p6.add(GetRequiredCourses);
 
 	}
 	

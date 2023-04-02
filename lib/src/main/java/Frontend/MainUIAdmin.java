@@ -92,6 +92,13 @@ public class MainUIAdmin extends JDialog{
 		});
 		
 		
+		UpdatedEnrollment.addActionListener(new AccessListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				UpdatedEnrollment ad = new UpdatedEnrollment(frame);
+				ad.setVisible(true);
+			}
+		});
 		
 		AddRequiredCourse.addActionListener(new AccessListener(){
 			@Override
@@ -724,20 +731,20 @@ public class MainUIAdmin extends JDialog{
 			StatusBox = new JTextField();
 			StatusBox.setColumns(10);
 			GridBagConstraints c5 = new GridBagConstraints();
-			GridBagConstraintsSetter(c5,4,2,70);
+			GridBagConstraintsSetter(c5,4,3,70);
 
 			JLabel Status = new JLabel("Status:");
 			GridBagConstraints c6 = new GridBagConstraints();
-			GridBagConstraintsSetter(c6,0,2,0);
+			GridBagConstraintsSetter(c6,0,3,0);
 			
 			GradeBox = new JTextField();
 			GradeBox.setColumns(10);
 			GridBagConstraints c7 = new GridBagConstraints();
-			GridBagConstraintsSetter(c3,4,2,70);
+			GridBagConstraintsSetter(c7,4,4,70);
 
 			JLabel Grade = new JLabel("Grade:");
 			GridBagConstraints c8 = new GridBagConstraints();
-			GridBagConstraintsSetter(c4,0,2,0);
+			GridBagConstraintsSetter(c8,0,4,0);
 			
 			
 			
