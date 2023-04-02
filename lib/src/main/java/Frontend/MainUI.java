@@ -107,7 +107,7 @@ public class MainUI extends JDialog{
 				+ result.get(3) + "\n" + "address: " + result.get(4) + "\n"
 				+ "degree: " + result.get(5);
 				Result s2 = new Result(frame, s);
-				s2.setVisible(true);
+//				s2.setVisible(true);
 			}
 		});
 		
@@ -117,7 +117,7 @@ public class MainUI extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e){
 				AddCourse ad = new AddCourse(frame,DB.student_info(account, password).get(1),DB.student_info(account, password).get(0),"inprogress","NA");
-				ad.setVisible(true);
+//				ad.setVisible(true);
 			}
 		});
 		
@@ -143,7 +143,7 @@ public class MainUI extends JDialog{
 				}
 
 				Result s2 = new Result(frame, s);
-				s2.setVisible(true);
+//				s2.setVisible(true);
 			}
 		});
 		
@@ -152,7 +152,7 @@ public class MainUI extends JDialog{
 			public void actionPerformed(ActionEvent e){
 				String result = "Your Overall GPA is " + DB.getOverAllGPAForStudent(DB.getStudentID(account, password));
 				Result s2 = new Result(frame, result);
-				s2.setVisible(true);
+//				s2.setVisible(true);
 			}
 		});
 		
@@ -164,11 +164,12 @@ public class MainUI extends JDialog{
 				String s = "";
 				for(HashMap<String, String> result: result0 ) {
 					s += "course_id: "+result.get("courseId")+"\n"+"Course_name: "+result.get("name")
-					+ "\n" + "credit: " + result.get("credit") + "\n\n";
+					+ "\n" + "credit: " + result.get("credit") + "\n" +
+					"prerequisites: "+result.get("prerequisites") + "\n\n";
 				}
 
 				Result s2 = new Result(frame, s);
-				s2.setVisible(true);
+//				s2.setVisible(true);
 			}
 		});
 		

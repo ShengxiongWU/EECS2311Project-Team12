@@ -16,6 +16,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Backend.Admin;
@@ -91,7 +92,7 @@ public class MainUIAdmin extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e){
 				AddCourse ad = new AddCourse(frame,"inprogress","NA");
-				ad.setVisible(true);
+//				ad.setVisible(true);
 			}
 		});
 		
@@ -100,7 +101,7 @@ public class MainUIAdmin extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e){
 				UpdatedEnrollment ad = new UpdatedEnrollment(frame);
-				ad.setVisible(true);
+//				ad.setVisible(true);
 			}
 		});
 		
@@ -108,7 +109,7 @@ public class MainUIAdmin extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e){
 				AddRequiredCourse ad = new AddRequiredCourse(frame);
-				ad.setVisible(true);
+//				ad.setVisible(true);
 			}
 		});
 		
@@ -116,10 +117,17 @@ public class MainUIAdmin extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e){
 				RemoveRequiredCourse ad = new RemoveRequiredCourse(frame);
-				ad.setVisible(true);
+//				ad.setVisible(true);
 			}
 		});
 		
+		GetRequiredCourses.addActionListener(new AccessListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				GetRequiredCourses ad = new GetRequiredCourses(frame);
+//				ad.setVisible(true);
+			}
+		});
 		
 
 		p1.add(CreateCourse); 
@@ -149,6 +157,20 @@ public class MainUIAdmin extends JDialog{
 		
 		
 	}
+	
+	private class Result extends JDialog {
+		public Result(JFrame j,String m) {
+			super(j,"result",true);
+			setSize(700,400);
+			setLocationRelativeTo(null);
+			Container c = getContentPane();
+			c.setLayout(new FlowLayout());
+			JTextArea error = new JTextArea(m);
+			c.add(error);
+		}
+
+	}
+	
 	private class CreateCourse extends JDialog{
 
 		private JTextField CourseIDBox = null;
@@ -878,10 +900,11 @@ public class MainUIAdmin extends JDialog{
 					String s = "";
 					for(HashMap<String, String> result: result0 ) {
 						s += "course_id: "+result.get("courseId")+"\n"+"Course_name: "+result.get("name")
-						+ "\n" + "credit: " + result.get("credit") + "\n\n";
+						+ "\n" + "credit: " + result.get("credit") + "\n" +
+						"prerequisites: "+result.get("prerequisites")+"\n\n";
 					}
 
-					Error s2 = new Error(frame, s);
+					Result s2 = new Result(frame, s);
 					s2.setVisible(true);
 				}
 			});
@@ -914,6 +937,9 @@ public class MainUIAdmin extends JDialog{
 
 
 	}
+	
+
+	
 
 
 
