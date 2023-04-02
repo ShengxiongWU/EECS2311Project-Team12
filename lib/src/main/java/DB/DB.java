@@ -577,43 +577,33 @@ public class DB {
 		
 		// getEnrollmentCourse of the student: 
 		ArrayList<ArrayList<String>> enrolledCourses = getEnrolledCourses(studentID);
+		HashMap<String, Integer> gradePoint = new HashMap<String, Integer>();
+		gradePoint.put("A+", 9);
+		gradePoint.put("A", 8);
+		gradePoint.put("B+", 7);
+		gradePoint.put("B", 6);
+		gradePoint.put("C+", 5);
+		gradePoint.put("C", 4);
+		gradePoint.put("D+", 3);
+		gradePoint.put("D", 2);
+		gradePoint.put("E", 1);
+		gradePoint.put("F", 0);
+		
 		double result = 0;
 		double sumgpa = 0;
-		int courseCount = enrolledCourses.size();
+		double credit = 0;
 		for(int i = 0; i < enrolledCourses.size(); i++) {
+			/*
+			 * Get course Id from enrolled courses
+			 * Get course credit from course info
+			 */
+			HashMap<String, String> info = getCrouseInfo(enrolledCourses.get(i).get(0));
 			String grade = enrolledCourses.get(i).get(5);
-			if(grade == "A+") {
-				sumgpa += 9;
-			}
-			else if(grade == "A") {
-				sumgpa += 8;
-			}
-			else if(grade == "B+") {
-				sumgpa += 7;
-			}
-			else if(grade == "B") {
-				sumgpa += 6;
-			}
-			else if(grade == "C+") {
-				sumgpa += 5;
-			}
-			else if(grade == "C" ) {
-				sumgpa += 4;
-			}
-			else if(grade == "D+") {
-				sumgpa += 3;
-			}
-			else if(grade == "D") {
-				sumgpa += 2;
-			}
-			else if(grade == "E") {
-				sumgpa += 1;
-			}
-			else if(grade == "F") {
-				sumgpa += 0;
-			}
+			Double courseCredit = Double.parseDouble(info.get("credit"));
+			sumgpa += courseCredit * gradePoint.get(grade);
+			credit+= courseCredit;
 		}
-		result = sumgpa/courseCount;
+		result = sumgpa/credit;
 		return result;
 	}
 	
