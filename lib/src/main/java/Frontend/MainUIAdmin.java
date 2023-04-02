@@ -27,6 +27,7 @@ import DB.DB;
 
 
 
+
 public class MainUIAdmin extends JDialog{
 
 
@@ -48,22 +49,24 @@ public class MainUIAdmin extends JDialog{
 		InitialFrame();
 
         GridBagLayout gridBag = new GridBagLayout();   
-		container.setLayout(new GridLayout(5,5));
+		container.setLayout(new GridLayout(6,6));
 		JPanel p1 = new JPanel(gridBag);
 		JPanel p2 = new JPanel(gridBag);
 		JPanel p3 = new JPanel(gridBag);
 		JPanel p4 = new JPanel(gridBag);
-		JPanel p5 = new JPanel(new FlowLayout());
-		CreateAndSetComponent(p1,p2,p3,p4,p5);
+		JPanel p5 = new JPanel(gridBag);
+		JPanel p6 = new JPanel(new FlowLayout());
+		CreateAndSetComponent(p1,p2,p3,p4,p5,p6);
 		container.add(p1);
 		container.add(p2);
 		container.add(p3);
 		container.add(p4);
 		container.add(p5);
+		container.add(p6);
 		frame.setVisible(true);
 	}
 	
-	private void CreateAndSetComponent(JPanel p1, JPanel p2, JPanel p3,JPanel p4, JPanel p5) {
+	private void CreateAndSetComponent(JPanel p1, JPanel p2, JPanel p3,JPanel p4, JPanel p5, JPanel p6) {
 
 		
 
@@ -72,6 +75,7 @@ public class MainUIAdmin extends JDialog{
 		JButton UpdatedEnrollment = new JButton("Updated Enrollment");
 		JButton AddRequiredCourse = new JButton("Add RequiredCourse");
 		JButton RemoveRequiredCourse = new JButton("Remove RequiredCourse");
+		JButton GetRequiredCourses = new JButton("Get RequiredCourses");
 		
 		
 		CreateCourse.addActionListener(new AccessListener(){
@@ -115,12 +119,15 @@ public class MainUIAdmin extends JDialog{
 				ad.setVisible(true);
 			}
 		});
+		
+		
 
 		p1.add(CreateCourse); 
 		p2.add(AddEnrollment);
 		p3.add(UpdatedEnrollment);
 		p4.add(AddRequiredCourse);
 		p5.add(RemoveRequiredCourse);
+		p6.add(GetRequiredCourses);
 
 
 	}
@@ -372,7 +379,7 @@ public class MainUIAdmin extends JDialog{
 			submit.addActionListener(new AccessListener(){
 				@Override
 				public void actionPerformed(ActionEvent e){
-					boolean f = DB.addEnrollment(CourseIDBox.getText(),DB.getCrouseInfo(CourseIDBox.getText()).get("name") , StudentIDBox.getText(), status, TermBox.getText(), grade);
+					boolean f = DB.addEnrollment(CourseIDBox.getText(),DB.getCourseInfo(CourseIDBox.getText()).get("name") , StudentIDBox.getText(), status, TermBox.getText(), grade);
 
 				if(f) {
 					Error e1 = new Error(frame,"success");
@@ -804,6 +811,110 @@ public class MainUIAdmin extends JDialog{
 
 
 	}
+	
+	private class GetRequiredCourses extends JDialog{
+
+		private JTextField DegreeBox = null;
+		private GetRequiredCourses ad = null;
+		private Container container = null;
+
+		
+		public GetRequiredCourses(JFrame j) {
+			super(j,"GetRequiredCourses",true);
+			this.ad = this;
+			InitialFrame();
+	        GridBagLayout gridBag = new GridBagLayout();   
+			container.setLayout(new GridLayout(2,1));
+			JPanel p1 = new JPanel(gridBag);
+			JPanel p2 = new JPanel(new FlowLayout());
+
+			CreateAndSetComponent(p1,p2);
+			container.add(p1);
+			container.add(p2);
+
+			ad.setVisible(true);
+		}
+
+		private class Error extends JDialog {
+			public Error(JFrame j,String m) {
+				super(j,"result",true);
+				setSize(450,150);
+				setLocationRelativeTo(null);
+				Container c = getContentPane();
+				c.setLayout(new FlowLayout());
+				JLabel error = new JLabel(m);
+				c.add(error);
+			}
+
+		}
+		private void InitialFrame() {
+			ad.setSize(400, 350);
+			ad.setLocationRelativeTo(null);
+			container = ad.getContentPane();
+		}
+		private void GridBagConstraintsSetter(GridBagConstraints c, int gridx, int gridy, int ipadx) {
+			c.gridx = gridx;
+			c.gridy = gridy;
+			c.ipadx = ipadx;
+		}
+		private void CreateAndSetComponent(JPanel p1, JPanel p2) {
+			DegreeBox = new JTextField();
+			DegreeBox.setColumns(10);
+			GridBagConstraints c1 = new GridBagConstraints();
+			GridBagConstraintsSetter(c1,4,1,70);
+
+			JLabel Degree = new JLabel("Degree:");
+			GridBagConstraints c2 = new GridBagConstraints();
+			GridBagConstraintsSetter(c2,0,1,0);
+			
+			
+			
+			JButton submit = new JButton("Submit!");
+			
+			submit.addActionListener(new AccessListener(){
+				@Override
+				public void actionPerformed(ActionEvent e){
+					ArrayList<HashMap<String, String>> result0 = DB.getRequiredCourses(DegreeBox.getText());
+					String s = "";
+					for(HashMap<String, String> result: result0 ) {
+						s += "course_id: "+result.get("courseId")+"\n"+"Course_name: "+result.get("name")
+						+ "\n" + "credit: " + result.get("credit") + "\n\n";
+					}
+
+					Error s2 = new Error(frame, s);
+					s2.setVisible(true);
+				}
+			});
+			
+			p1.add(DegreeBox,c1); 
+			p1.add(Degree,c2); 
+			
+
+			
+			
+			
+
+			p2.add(submit);
+		}
+		
+		
+		
+		private class AccessListener implements ActionListener{
+			
+			public void actionPerformed(ActionEvent e) {
+			}
+			
+			
+			
+		}
+
+
+
+
+
+
+	}
+
 
 
 

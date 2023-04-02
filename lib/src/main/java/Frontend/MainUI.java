@@ -50,7 +50,7 @@ public class MainUI extends JDialog{
 		InitialFrame();
 
         GridBagLayout gridBag = new GridBagLayout();   
-		container.setLayout(new GridLayout(5,5));
+		container.setLayout(new GridLayout(6,6));
 		JPanel p1 = new JPanel(gridBag);
 		JPanel p2 = new JPanel(gridBag);
 		JPanel p3 = new JPanel(gridBag);
@@ -159,13 +159,12 @@ public class MainUI extends JDialog{
 		GetRequiredCourses.addActionListener(new AccessListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				ArrayList<ArrayList<String>> result0 = DB.getEnrolledCourses(DB.getStudentID(account, password));
+				ArrayList<HashMap<String, String>> result0 = DB.getRequiredCoursesForStudent(DB.getStudentID(account, password),DB.getStudentDegree(account, password));
 				
 				String s = "";
-				for(ArrayList<String> result: result0 ) {
-					s += "course_id: "+result.get(0)+"\n"+"Course_name: "+result.get(1)
-					+ "\n" + "status: " + result.get(3) + "\n" + "term_taken: "
-					+ result.get(4) + "\n" + "grade: " + result.get(5) + "\n\n";
+				for(HashMap<String, String> result: result0 ) {
+					s += "course_id: "+result.get("courseId")+"\n"+"Course_name: "+result.get("name")
+					+ "\n" + "credit: " + result.get("credit") + "\n\n";
 				}
 
 				Result s2 = new Result(frame, s);
