@@ -50,16 +50,18 @@ public class MainUI extends JDialog{
 		InitialFrame();
 
         GridBagLayout gridBag = new GridBagLayout();   
-		container.setLayout(new GridLayout(4,4));
+		container.setLayout(new GridLayout(5,5));
 		JPanel p1 = new JPanel(gridBag);
 		JPanel p2 = new JPanel(gridBag);
 		JPanel p3 = new JPanel(gridBag);
-		JPanel p4 = new JPanel(new FlowLayout());
-		CreateAndSetComponent(p1,p2,p3,p4);
+		JPanel p4 = new JPanel(gridBag);
+		JPanel p5 = new JPanel(new FlowLayout());
+		CreateAndSetComponent(p1,p2,p3,p4,p5);
 		container.add(p1);
 		container.add(p2);
 		container.add(p3);
 		container.add(p4);
+		container.add(p5);
 		frame.setVisible(true);
 	}
 	
@@ -76,7 +78,7 @@ public class MainUI extends JDialog{
 
 	}
 	
-	private void CreateAndSetComponent(JPanel p1, JPanel p2, JPanel p3,JPanel p4) {
+	private void CreateAndSetComponent(JPanel p1, JPanel p2, JPanel p3,JPanel p4,JPanel p5) {
 
 		
 
@@ -87,6 +89,8 @@ public class MainUI extends JDialog{
 		JButton GetPersonalInfo = new JButton("Get personal information");
 		
 		JButton CheckCourse = new JButton("Check Course");
+		
+		JButton GetOverallGPA = new JButton("Check GPA");
 		
 
 		
@@ -138,12 +142,22 @@ public class MainUI extends JDialog{
 				s2.setVisible(true);
 			}
 		});
+		
+		GetOverallGPA.addActionListener(new AccessListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				String result = "Your Overall GPA is " + DB.getOverAllGPAForStudent(DB.getStudentID(account, password));
+				Result s2 = new Result(frame, result);
+				s2.setVisible(true);
+			}
+		});
 
 		p1.add(AddCourse); 
 
 		p2.add(DropCourse);
 		p3.add(GetPersonalInfo);
 		p4.add(CheckCourse);
+		p5.add(GetOverallGPA);
 
 	}
 	
