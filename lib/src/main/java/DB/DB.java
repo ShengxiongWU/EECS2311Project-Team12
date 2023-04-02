@@ -241,22 +241,23 @@ public class DB {
 		 */
 		HashMap<String, Boolean> changeMap = new HashMap<String, Boolean>();
 		if(name.length() != 0) {
-			changeMap.put("nameChanged",updateStudentInfoHelper(name, studentId));
+			changeMap.put("nameChanged",updateStudentInfoHelper("name", name, studentId));
 		}
 		if(pass.length() != 0) {
-			changeMap.put("passChanged", updateStudentInfoHelper(pass, studentId));
+			changeMap.put("passChanged", updateStudentInfoHelper("password", pass, studentId));
 		}
 		if(address.length()!=0) {
-			changeMap.put("addressChanged", updateStudentInfoHelper(address, studentId));
+			changeMap.put("addressChanged", updateStudentInfoHelper("address", address, studentId));
 		}
 		if(degree.length()!=0) {
-			changeMap.put("degreeChanged", updateStudentInfoHelper(degree, studentId));
+			changeMap.put("degreeChanged", updateStudentInfoHelper("degree", degree, studentId));
 		}
+		
 //		String query = "UPDATE students set name = ?, pass = ?, degree =  ?, address = ? and id = ?;";
 		return changeMap;
 	}
 	
-	private static boolean updateStudentInfoHelper(String param, String studentId) {
+	private static boolean updateStudentInfoHelper(String param, String change, String studentId) {
 		/*
 		 * Input a param you want to change in the student table (name, pass, address, degree) and student id
 		 * The result is changing the parameter in the database for that student
@@ -264,7 +265,7 @@ public class DB {
 		try {
 			String query = "UPDATE students set "+param+ " = ? where id = ?";
 			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1, param);
+			pstmt.setString(1, change);
 			pstmt.setString(2, studentId);
 			int rowsEffected = pstmt.executeUpdate();
 			if(rowsEffected == 1) return true;
