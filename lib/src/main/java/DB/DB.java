@@ -217,9 +217,10 @@ public class DB {
 	//drop one record of enrollment, by using this function, a student can drop his course or admin can drop one student's course
 	public boolean dropEnrollment(String studentId, String courseId) {
 		try {
-			String query = String.format("DELETE FROM course_enrollment WHERE student_id=%s and course_id=%s;",studentId, courseId);
+			String query = "DELETE FROM course_enrollment WHERE student_id=? and course_id=?";
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
-
+			pstmt.setString(1, studentId);
+			pstmt.setString(2, courseId);
 			int rowAffected = pstmt.executeUpdate();
 			if(rowAffected == 1)
 			{
@@ -626,8 +627,11 @@ public class DB {
 			HashMap<String, String> info = getCrouseInfo(enrolledCourses.get(i).get(0));
 			String grade = enrolledCourses.get(i).get(5);
 			Double courseCredit = Double.parseDouble(info.get("credit"));
-			sumgpa += courseCredit * gradePoint.get(grade);
-			credit+= courseCredit;
+			if(gradePoint.containsKey(grade)) {
+				int gp = gradePoint.get(grade);
+				sumgpa += courseCredit * gradePoint.get(grade);
+				credit+= courseCredit;
+			}
 		}
 		result = sumgpa/credit;
 		return result;
