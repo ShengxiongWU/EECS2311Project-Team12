@@ -26,6 +26,7 @@ import DB.DB;
 
 
 
+
 public class MainUI extends JDialog{
 
 
@@ -58,13 +59,14 @@ public class MainUI extends JDialog{
 		container.add(p1);
 		container.add(p2);
 		container.add(p3);
+		container.add(p4);
 		frame.setVisible(true);
 	}
 	
 	private class Result extends JDialog {
 		public Result(JFrame j,String m) {
 			super(j,"result",true);
-			setSize(450,150);
+			setSize(700,400);
 			setLocationRelativeTo(null);
 			Container c = getContentPane();
 			c.setLayout(new FlowLayout());
@@ -77,15 +79,16 @@ public class MainUI extends JDialog{
 	private void CreateAndSetComponent(JPanel p1, JPanel p2, JPanel p3,JPanel p4) {
 
 		
-		JLabel CourseCode1 = new JLabel("Course Code:");
-		JLabel CourseCode2 = new JLabel("Course Code:");
-//		JTextField CourseCodeText1 = new JTextField();
-//		JTextField CourseCodeText2 = new JTextField();
-//		CourseCodeText1.setColumns(10);
-//		CourseCodeText2.setColumns(10);
+
 		JButton AddCourse = new JButton("Add Course");
 		
+		JButton DropCourse = new JButton("Drop Course");
+		
 		JButton GetPersonalInfo = new JButton("Get personal information");
+		
+		JButton CheckCourse = new JButton("Check Course");
+		
+
 		
 		GetPersonalInfo.addActionListener(new AccessListener(){
 			@Override
@@ -100,7 +103,7 @@ public class MainUI extends JDialog{
 			}
 		});
 		
-		JButton CheckCourse = new JButton("Check Course");
+
 		
 		AddCourse.addActionListener(new AccessListener(){
 			@Override
@@ -110,7 +113,7 @@ public class MainUI extends JDialog{
 			}
 		});
 		
-		JButton DropCourse = new JButton("Drop Course");
+
 		
 		DropCourse.addActionListener(new AccessListener(){
 			@Override
@@ -118,12 +121,26 @@ public class MainUI extends JDialog{
 				
 			}
 		});
-//		p1.add(CourseCode1);
-//		p1.add(CourseCodeText1);
+		
+		CheckCourse.addActionListener(new AccessListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				ArrayList<ArrayList<String>> result0 = DB.getEnrolledCourses(DB.getStudentID(account, password));
+				
+				String s = "";
+				for(ArrayList<String> result: result0 ) {
+					s += "course_id: "+result.get(0)+"\n"+"Course_name: "+result.get(1)
+					+ "\n" + "status: " + result.get(3) + "\n" + "term_taken: "
+					+ result.get(4) + "\n" + "grade: " + result.get(5) + "\n\n";
+				}
+
+				Result s2 = new Result(frame, s);
+				s2.setVisible(true);
+			}
+		});
+
 		p1.add(AddCourse); 
 
-//		p2.add(CourseCode2);
-//		p2.add(CourseCodeText2);
 		p2.add(DropCourse);
 		p3.add(GetPersonalInfo);
 		p4.add(CheckCourse);
@@ -182,7 +199,7 @@ public class MainUI extends JDialog{
 
 		private class Error extends JDialog {
 			public Error(JFrame j,String m) {
-				super(j,"error",true);
+				super(j,"result",true);
 				setSize(450,150);
 				setLocationRelativeTo(null);
 				Container c = getContentPane();
@@ -227,7 +244,21 @@ public class MainUI extends JDialog{
 			submit.addActionListener(new AccessListener(){
 				@Override
 				public void actionPerformed(ActionEvent e){
-					DB.addEnrollment(CourseIDBox.getText(), StudentName, StudentID, status, TermBox.getText(), grade);
+					boolean f = DB.addEnrollment(CourseIDBox.getText(), StudentName, StudentID, status, TermBox.getText(), grade);
+					if(f) {
+						Error e1 = new Error(frame,"success");
+						ad.setVisible(false);
+						e1.setVisible(true);
+
+						
+					}else {
+						Error e2 = new Error(frame,"fail");
+						ad.setVisible(false);
+						e2.setVisible(true);
+
+					}
+					
+				
 				}
 			});
 			
