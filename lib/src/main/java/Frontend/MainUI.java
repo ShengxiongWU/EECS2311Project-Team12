@@ -547,6 +547,8 @@ public class MainUI extends JDialog{
 					}
 					
 					Result r = new Result(frame,s);
+					r.setVisible(true);
+					password = PasswordBox.getText();
 
 
 				}
