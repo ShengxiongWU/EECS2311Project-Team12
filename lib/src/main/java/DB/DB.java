@@ -475,10 +475,12 @@ public class DB {
 				String courseId = rs.getString("course_id");
 				HashMap<String, String> info = getCourseInfo(courseId);
 				String credit = info.get("credit");
+				String preq = info.get("prerequisites");
 				String name = rs.getString("name");
 				course.put("courseId", courseId);
 				course.put("name", name);
 				course.put("credit", credit);
+				course.put("prerequisites", preq);
 				courses.add(course);
 			}
 		}catch(SQLException e) {
