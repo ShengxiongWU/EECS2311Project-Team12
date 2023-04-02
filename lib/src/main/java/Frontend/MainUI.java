@@ -540,19 +540,15 @@ public class MainUI extends JDialog{
 			submit.addActionListener(new AccessListener(){
 				@Override
 				public void actionPerformed(ActionEvent e){
-					boolean f = true;
-				if(f) {
-					Error e1 = new Error(frame,"success");
-					ad.setVisible(false);
-					e1.setVisible(true);
-
+					HashMap<String, Boolean> h =  DB.changePersonalInfo(DB.getStudentID(account, password),NameBox.getText(),PasswordBox.getText(),AddressBox.getText(),DegreeBox.getText());
+					String s = "";
+					for(String k :h.keySet()) {
+						s += k + " : " + h.get(k) + "\n";
+					}
 					
-				}else {
-					Error e2 = new Error(frame,"fail");
-					ad.setVisible(false);
-					e2.setVisible(true);
+					Result r = new Result(frame,s);
 
-				}
+
 				}
 			});
 			
