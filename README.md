@@ -21,11 +21,6 @@
 * Priority: HIGH                                                                                      
 * Cost: 5-7 days
 
-#### Personal information Database
-* Create a user database for managing the students’ information including their login information, academic records, and student personal information.
-* Priority: HIGH                                                                                      
-* Cost: 5-7 days
-
 #### Register user interface (new work)
 * Create a register user interface for students and admins to register to be a user of our system.
 * Priority: HIGH                                                                                      
