@@ -35,7 +35,7 @@
 
 ### iteration 2
 #### EECS department are able to edit course taken 
-* Advisor can add students to the course waitlist queue
+* Advisor can add students to the course's enrollment
 * Priority: HIGH                                                                                         
 * Cost: 3 days
 
