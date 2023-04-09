@@ -26,34 +26,36 @@ import DB.DB;
 
 
 
-
-
-
-
 public class MainUI extends JDialog{
 
 
+	// Variables for the class
 	private JFrame frame = null;
 	private Container container = null;
 	private static DB db;
 	private static String account;
 	private static String password;
 
-	
+	// Static method to get an instance of the class
 	public static MainUI getInstance(String account, String password) {
-
 		return new MainUI(account,password);
 	}
-	
+
+	// Private constructor for the class
 	private MainUI(String account, String password) {
+		// Set values for the account, password, and db variables
 		this.account = account;
 		this.password = password;
 		db=DB.getInstance();
+		// Create a new JFrame
 		frame = new JFrame("MainUI");
+		// Call the InitialFrame method to set up the frame
 		InitialFrame();
 
-        GridBagLayout gridBag = new GridBagLayout();   
+        // Create a new GridBagLayout and set the container's layout to a new GridLayout with 7 rows and 7 columns
+		GridBagLayout gridBag = new GridBagLayout();   
 		container.setLayout(new GridLayout(7,7));
+		// Create 7 new JPanels, each with a GridBagLayout or a FlowLayout
 		JPanel p1 = new JPanel(gridBag);
 		JPanel p2 = new JPanel(gridBag);
 		JPanel p3 = new JPanel(gridBag);
@@ -61,6 +63,7 @@ public class MainUI extends JDialog{
 		JPanel p5 = new JPanel(gridBag);
 		JPanel p6 = new JPanel(gridBag);
 		JPanel p7 = new JPanel(new FlowLayout());
+		// Call the CreateAndSetComponent method to add components to each panel, then add the panels to the container
 		CreateAndSetComponent(p1,p2,p3,p4,p5,p6,p7);
 		container.add(p1);
 		container.add(p2);
@@ -69,9 +72,11 @@ public class MainUI extends JDialog{
 		container.add(p5);
 		container.add(p6);
 		container.add(p7);
+		// Set the frame to be visible
 		frame.setVisible(true);
 	}
-	
+
+	// Private class for displaying a result in a dialog
 	private class Result extends JDialog {
 		public Result(JFrame j,String m) {
 			super(j,"result",true);
@@ -82,12 +87,14 @@ public class MainUI extends JDialog{
 			JTextArea error = new JTextArea(m);
 			c.add(error);
 		}
-
 	}
 	
+	// Method for creating and adding components to the panels
+
 	private void CreateAndSetComponent(JPanel p1, JPanel p2, JPanel p3,JPanel p4,JPanel p5,JPanel p6,JPanel p7) {
 
 		
+// Create 7 JButtons
 
 		JButton AddCourse = new JButton("Add Course");
 		
@@ -104,7 +111,9 @@ public class MainUI extends JDialog{
 		JButton ChangePersonalInfo = new JButton("Change personal information");
 		
 
-		
+		// ActionListener for the GetPersonalInfo button.
+		// When the button is clicked, it retrieves the student's personal information from the database
+		// and displays it in a new Result window.
 		GetPersonalInfo.addActionListener(new AccessListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -117,7 +126,8 @@ public class MainUI extends JDialog{
 				s2.setVisible(true);
 			}
 		});
-		
+		// ActionListener for the ChangePersonalInfo button.
+		// When the button is clicked, it creates a new ChangePersonalInfo window.
 		ChangePersonalInfo.addActionListener(new AccessListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -125,7 +135,9 @@ public class MainUI extends JDialog{
 
 			}
 		});
-		
+		// ActionListener for the AddCourse button.
+		// When the button is clicked, it retrieves the student's information from the database
+		// and creates a new AddCourse window with the necessary information.
 		AddCourse.addActionListener(new AccessListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -135,14 +147,17 @@ public class MainUI extends JDialog{
 		});
 		
 
-		
+		// ActionListener for the DropCourse button.
+		// When the button is clicked, it creates a new DropCourse window.
 		DropCourse.addActionListener(new AccessListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
 				DropCourse d = new DropCourse(frame);
 			}
 		});
-		
+		// ActionListener for the CheckCourse button.
+		// When the button is clicked, it retrieves the student's enrolled courses from the database
+		// and formats the information as a string to display in a new Result window.
 		CheckCourse.addActionListener(new AccessListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
