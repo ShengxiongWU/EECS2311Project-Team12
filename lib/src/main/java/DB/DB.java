@@ -19,13 +19,16 @@ public class DB {
 		   String url = "jdbc:mysql://localhost:3306/";
 		   String user = "root";
 		    String password = "root1234";
-
+		    //connection
 			conn = DriverManager.getConnection(url,user,password);
 			Statement statement = conn.createStatement();
 			String checkDB = "select Count(*), schema_name from information_schema.schemata where schema_name='db';";
 			String create_database = "create database db;";
 			String use_database = "use db;";
 
+			/*
+			 * Student table 
+			 */
 			String create_studentTable = "create table students" +
 					"(id varchar(25) not NULL unique, " +
 					" name varchar(40), " +
@@ -34,14 +37,18 @@ public class DB {
 					" address VARCHAR(100), " +
 					" degree VARCHAR(100), " +
 					" PRIMARY KEY ( account, password ));";
-
+			/*
+			 * Course table 
+			 */
 			String create_courseTable = "create table courses" +
 					"(id varchar(25) not NULL, " +
 					" name varchar(100), " +
 					" credit VARCHAR(20), " +
 					" prequisites VARCHAR(255), " +
 					" PRIMARY KEY ( id ));";
-
+			/*
+			 * Course Enrollment table 
+			 */
 			String create_courseEnrolmentTable = "create table course_enrollment" +
 					"(course_id varchar(25) not null," +
 					" name VARCHAR(100), " +
@@ -52,7 +59,9 @@ public class DB {
 					" PRIMARY KEY (course_id, student_id)," +
 					" FOREIGN KEY (student_id) REFERENCES students(id)," +
 					" FOREIGN KEY (course_id) REFERENCES courses(id));";
-
+			/*
+			 * Admin table 
+			 */
 			String create_adminTable = "create table admins" +
 					"(id varchar(25) not NULL unique, " +
 					" account CHAR(10), " +
@@ -60,6 +69,9 @@ public class DB {
 					" address VARCHAR(100), " +
 					" faculty VARCHAR(30), " +
 					" PRIMARY KEY ( account, password ));";
+			/*
+			 * Course Requirement table 
+			 */
 			String create_courseRequirementsTable = "create table course_requirements" +
 					"(course_id VARCHAR(25) not null," +
 					"name VARCHAR(100),"+
@@ -94,11 +106,12 @@ public class DB {
 
 
 		}
+		//exception
 		catch (SQLException e){
 			e.printStackTrace();
 		}
 	}
-	
+	//get instance of db 
 	 public static DB getInstance() {
 		   if(db == null) {
 			   db = new DB();
@@ -234,6 +247,7 @@ public class DB {
 		return false;
 
 	}
+	//method to change personal information like name, password, degree, address
 	public static HashMap<String, Boolean> changePersonalInfo(String studentId, String name, String pass, String address, String degree) {
 		/*
 		 * Input: studentid, name, pass, address and degree. 
@@ -256,7 +270,9 @@ public class DB {
 //		String query = "UPDATE students set name = ?, pass = ?, degree =  ?, address = ? and id = ?;";
 		return changeMap;
 	}
-	
+	/*
+	 * update student information helper method
+	 */
 	private static boolean updateStudentInfoHelper(String param, String change, String studentId) {
 		/*
 		 * Input a param you want to change in the student table (name, pass, address, degree) and student id
