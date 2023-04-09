@@ -5,7 +5,9 @@ import java.util.Objects;
 import DB.DB;
 
 
-
+/*
+ * Enrollment class with methods that allows students to drop, add, get course information 
+ */
 public class Enrollments {
 	private ArrayList<Enrollment> enrollments;
 	private static Enrollments enroll_list;
@@ -54,8 +56,9 @@ public class Enrollments {
 		  
 		return enroll_list;
 	   }
-    //delete enrollment from enrollments
-	
+    /*
+     * get GPA of a student given the student id
+     */
 	public double getOverAllGPA(String student_id) {
 		double sumCredit = 0;
 		for(int i = 0; i<enrollments.size(); i++) {
@@ -105,7 +108,9 @@ public class Enrollments {
 		
 		return Math.round(gpa * 10.0) / 10.0;
 	}
-	
+	/*
+	 * gets satisfied courses given the student id
+	 */
 	public ArrayList<Course> getSatisfiedCourse(String student_id){
 		ArrayList<Course> satisfiedCourse = new ArrayList<Course>();
 		for(int i = 0; i<enrollments.size(); i++) {
@@ -116,7 +121,9 @@ public class Enrollments {
 	}
 		return satisfiedCourse;
 	}
-	
+	/*
+	 * gets unsatisfied courses given the student id
+	 */
 	public ArrayList<Course> getUnsatisfiedCourse(String student_id){
 		ArrayList<Course> unsatisfiedCourse = new ArrayList<Course>();
 		for(int i = 0; i<enrollments.size(); i++) {
@@ -127,7 +134,9 @@ public class Enrollments {
 	}
 		return unsatisfiedCourse;
 	}
-    
+    /*
+     * get courses enrolled in given the student id
+     */
 	public ArrayList<Course> getAllCoursesEnrolled(String student_id){
 		ArrayList<Course> enrolledCourse = new ArrayList<Course>();
 		for(int i = 0; i<enrollments.size(); i++) {
@@ -137,10 +146,15 @@ public class Enrollments {
 	}
 		return enrolledCourse;
 	}
-	
+	/*
+	 * getter method for enrollment
+	 */
 	public ArrayList<Enrollment> getEnrollments() {
 		return enrollments;
 	}
+	/*
+	 * drop courses given the student ID and course ID 
+	 */
 	public void dropCourse(String student_Id, String course_Id) {
 	    for (int i = 0; i < enrollments.size(); i++) {
 	        Enrollment enrollment = enrollments.get(i);
