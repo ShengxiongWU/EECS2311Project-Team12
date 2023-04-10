@@ -54,23 +54,28 @@
 ### iteration 3
 #### View GPA
 * Overall GPA of the related student is showed in the system
-* Priority: Medium                                                                                  
+* Priority: MEDIUM                                                                                 
 * Cost: 3-5 days
 
-#### Major GPA
-* This function will calculate the GPA of Major Program Courses for the user, which can be an indication for them that they have to do well on those courses.
-* Priority - HIGH                                                                                  
-* Cost: 4 days
-
-#### Unsatisfied Courses or Failed Courses
-* This function will allow the user and advisor to know how many courses are unsatisfied by the user
+#### Failed Courses
+* This function will allow the student to know how many courses are unsatisfied by the student
 * Priority- MEDIUM                                                                         
-* Cost: 1-2 days
+* Cost: 3-5 days
 
 #### Check Degree Requirement
 * required courses is showed in the degree requirements
-* Priority: Medium                                                                               
+* Priority: MEDIUM                                                                               
 * Cost: 3-5 days
+
+#### Add/Drop Required Course for Degree
+* Add/Drop a required course for a degree as a admin user
+* Priority: HIGH
+* Cost: 2-4 days
+
+### Get/Update Student Personal Info
+* Able to update the personal info of your student account and check your personal info
+* Priority: MEDIUM
+* Cost: 2-4 days
 
 
 
